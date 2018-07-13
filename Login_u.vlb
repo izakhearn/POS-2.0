@@ -1,0 +1,16 @@
+﻿[edtUsername]
+Coordinates=88,10,79,51
+Visible=True
+
+[qryLogin]
+Coordinates=10,10,58,195
+
+[edtPassword]
+Coordinates=189,10,78,51
+
+[btnLogin]
+Coordinates=288,10,58,51
+
+[]
+Coordinates=214,78,91,36
+
