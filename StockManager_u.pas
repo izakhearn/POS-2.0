@@ -44,7 +44,6 @@ var
   frmStockManager: TfrmStockManager;
 
 implementation
-
 uses
   Admin_u;
 {$R *.dfm}
@@ -76,7 +75,7 @@ begin
   dsStock.Enabled := True;
   dbgrdStockView.Columns[0].Width := 230;
   dbgrdStockView.Columns[1].Width := 300;
-  dbgrdStockView.Columns[2].Width := 300;
+  dbgrdStockView.Columns[2].Width := 275;
 end;
 
 procedure TfrmStockManager.btnCorrectStockClick(Sender: TObject);
@@ -107,7 +106,7 @@ begin
   dsStock.Enabled := True;
   dbgrdStockView.Columns[0].Width := 230;
   dbgrdStockView.Columns[1].Width := 300;
-  dbgrdStockView.Columns[2].Width := 300;
+  dbgrdStockView.Columns[2].Width := 275;
 end;
 
 procedure TfrmStockManager.btnExportStockClick(Sender: TObject);
@@ -138,7 +137,7 @@ begin
   dsStock.Enabled := True;
   dbgrdStockView.Columns[0].Width := 230;
   dbgrdStockView.Columns[1].Width := 300;
-  dbgrdStockView.Columns[2].Width := 300;
+  dbgrdStockView.Columns[2].Width := 275;
 
 end;
 
@@ -167,7 +166,7 @@ begin
   dsStock.Enabled := True;
   dbgrdStockView.Columns[0].Width := 230;
   dbgrdStockView.Columns[1].Width := 300;
-  dbgrdStockView.Columns[2].Width := 300;
+  dbgrdStockView.Columns[2].Width := 275;
 end;
 
 procedure TfrmStockManager.btnViewAvailableStockClick(Sender: TObject);
@@ -190,7 +189,7 @@ procedure TfrmStockManager.FormCreate(Sender: TObject);
 begin
   dbgrdStockView.Columns[0].Width := 230;
   dbgrdStockView.Columns[1].Width := 300;
-  dbgrdStockView.Columns[2].Width := 300;
+  dbgrdStockView.Columns[2].Width := 275;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 

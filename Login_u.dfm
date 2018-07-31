@@ -2,8 +2,8 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Login'
-  ClientHeight = 172
-  ClientWidth = 276
+  ClientHeight = 170
+  ClientWidth = 263
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object frmLogin: TfrmLogin
   PixelsPerInch = 96
   TextHeight = 13
   object btnLogin: TBitBtn
-    Left = 16
-    Top = 104
+    Left = 8
+    Top = 80
     Width = 243
     Height = 59
     Caption = 'Login'
@@ -37,8 +37,8 @@ object frmLogin: TfrmLogin
     OnClick = btnLoginClick
   end
   object edtUsername: TEdit
-    Left = 80
-    Top = 24
+    Left = 72
+    Top = 0
     Width = 121
     Height = 21
     Constraints.MaxHeight = 35
@@ -49,8 +49,8 @@ object frmLogin: TfrmLogin
     TextHint = 'Username'
   end
   object edtPassword: TEdit
-    Left = 80
-    Top = 64
+    Left = 72
+    Top = 40
     Width = 121
     Height = 21
     Constraints.MaxHeight = 35
@@ -68,7 +68,7 @@ object frmLogin: TfrmLogin
     Parameters = <>
     SQL.Strings = (
       'SELECT * FROM Employees')
-    Left = 216
+    Left = 224
     Top = 56
   end
   object RESTClientLicenseCheck: TRESTClient
@@ -109,7 +109,7 @@ object frmLogin: TfrmLogin
     Top = 128
   end
   object mmHead: TMainMenu
-    Left = 32
+    Left = 40
     Top = 48
     object File1: TMenuItem
       Caption = 'File'

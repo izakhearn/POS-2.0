@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Winapi.ShellAPI, Vcl.Menus,DM_u;
+  Winapi.ShellAPI, Vcl.Menus, DM_u;
 
 type
   TfrmAdmin = class(TForm)
@@ -49,9 +49,8 @@ uses
 
 procedure TfrmAdmin.About1Click(Sender: TObject);
 begin
- DM_u.DataModule1.ShowAbout;
+  DM_u.DataModule1.ShowAbout;
 end;
-
 
 procedure TfrmAdmin.btnEmployeeManagerClick(Sender: TObject);
 begin
@@ -86,7 +85,7 @@ end;
 
 procedure TfrmAdmin.Exit1Click(Sender: TObject);
 begin
- DM_u.DataModule1.CloseApplication;
+  DM_u.DataModule1.CloseApplication;
 end;
 
 procedure TfrmAdmin.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -101,8 +100,8 @@ end;
 
 procedure TfrmAdmin.Logout1Click(Sender: TObject);
 begin
- Hide;
- DM_u.DataModule1.Logout;
+  Hide;
+  DM_u.DataModule1.Logout;
 end;
 
 end.

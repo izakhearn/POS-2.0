@@ -2,7 +2,7 @@ object frmAdmin: TfrmAdmin
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Admin'
-  ClientHeight = 519
+  ClientHeight = 523
   ClientWidth = 601
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

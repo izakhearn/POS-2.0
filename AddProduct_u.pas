@@ -33,6 +33,8 @@ var
 
 implementation
 
+uses
+  ProductManager_u;
 {$R *.dfm}
 
 procedure TfrmAddProduct.btnAddProductClick(Sender: TObject);
@@ -70,6 +72,15 @@ begin
   lbledtProductCost.Text := '';
   lbledtProductSell.Text := '';
   lbledtProductAmount.Text := '';
+  with frmProductManager do
+  begin
+    qryProducts.Active := False;
+    qryProducts.Active := True;
+    dbgrdProductView.Columns[0].Width := 200;
+    dbgrdProductView.Columns[1].Width := 270;
+    dbgrdProductView.Columns[2].Width := 103;
+    dbgrdProductView.Columns[3].Width := 103;
+  end;
 end;
 
 procedure TfrmAddProduct.btnCancelClick(Sender: TObject);

@@ -54,7 +54,7 @@ uses
 
 procedure TfrmLogin.About1Click(Sender: TObject);
 begin
- DM_u.DataModule1.ShowAbout;
+  DM_u.DataModule1.ShowAbout;
 end;
 
 procedure TfrmLogin.btnLoginClick(Sender: TObject);
@@ -131,7 +131,7 @@ end;
 
 procedure TfrmLogin.Exit1Click(Sender: TObject);
 begin
- DM_u.DataModule1.CloseApplication
+  DM_u.DataModule1.CloseApplication
 end;
 
 procedure TfrmLogin.FormActivate(Sender: TObject);
@@ -145,7 +145,7 @@ var
   sTemp: UnicodeString;
   dActivationDate, dExpirationDate: TDateTime;
   jResponse: TJSONValue;
-  I, iErrorCode, iPos: Integer;
+  I, iErrorCode, iPos, iDays: Integer;
   fLicenseFile: TextFile;
   rValidFor: tRegistry;
 
@@ -157,43 +157,37 @@ begin
       '/POS 2.0/QbsLFY6T2XRtMuA6i5jU') = True then
     begin
       rValidFor := tRegistry.Create;
-      rValidFor.OpenKey('Software\IWD\POS2.0\ExpirationDate', True);
-      sDate := rValidFor.ReadString('Value');
-      for I := 1 to Length(sDate) do
-      begin
+      rValidFor.OpenKey('Software\IWD\POS2.0\RegInfo', True);
 
-        iPos := Pos('-', sDate);
-        if iPos <> 0 then
-        begin
-          Delete(sDate, iPos, 1);
-          Insert('/', sDate, iPos);
-        end;
-      end;
-      sDateTemp := sDate;
-      sDate := Copy(sDateTemp, 6, 3);
-      sDate := sDate + Copy(sDateTemp, 9, 2);
-      sDate := sDate + '/' + Copy(sDateTemp, 1, 4);
-      dActivationDate := StrToDate(sDate);
-      sDate := rValidFor.ReadString('Value2');
-      for I := 1 to Length(sDate) do
-      begin
-
-        iPos := Pos('-', sDate);
-        if iPos <> 0 then
-        begin
-          Delete(sDate, iPos, 1);
-          Insert('/', sDate, iPos);
-        end;
-      end;
-      sDateTemp := sDate;
-      sDate := Copy(sDateTemp, 6, 3);
-      sDate := sDate + Copy(sDateTemp, 9, 2);
-      sDate := sDate + '/' + Copy(sDateTemp, 1, 4);
-      dExpirationDate := StrToDate(sDate);
+      dActivationDate := rValidFor.ReadDate('Value');
+      iDays := rValidFor.ReadInteger('Days');
       rValidFor.Free;
-      if (DaysBetween(dActivationDate, dActivationDate) < 30) then
+      if (DaysBetween(dActivationDate, Now) <= iDays) then
       begin
+        if (iDays - DaysBetween(dActivationDate, Now) < 10) then
+        begin
+          MessageDlg('Your License Expires in ' +
+            IntToStr(iDays - DaysBetween(dActivationDate, Now)) + ' Days',
+            mtInformation, [mbOK], 0);
+        end;
         Exit;
+      end
+      else
+      begin
+        rValidFor := tRegistry.Create;
+        rValidFor.OpenKey('Software\IWD\POS2.0\RegInfo', True);
+        sLicenseKey := rValidFor.ReadString('LicKey');
+        sNameCompany := rValidFor.ReadString('RegTo');
+        RESTRequestLicenseCheck.Params.ParameterByName('license_key').Value :=
+          sLicenseKey;
+        RESTRequestLicenseCheck.Params.ParameterByName('slm_action').Value :=
+          'slm_deactivate';
+        RESTRequestLicenseCheck.Params.ParameterByName('registered_domain')
+          .Value := sNameCompany;
+        RESTRequestLicenseCheck.Execute;
+        DeleteFile(GetEnvironmentVariable('appdata') +
+          '/POS 2.0/QbsLFY6T2XRtMuA6i5jU');
+        rValidFor.Free;
       end;
 
     end;
@@ -218,6 +212,8 @@ begin
       sLicenseKey;
     RESTRequestLicenseCheck.Params.ParameterByName('registered_domain').Value :=
       sNameCompany;
+    RESTRequestLicenseCheck.Params.ParameterByName('slm_action').Value :=
+      'slm_activate';
     RESTRequestLicenseCheck.Execute;
     jResponse := RESTResponseLicenseCheck.JSONValue;
     sStatus := jResponse.GetValue<string>('result');
@@ -271,53 +267,47 @@ begin
         Writeln(fLicenseFile, sTemp);
         CloseFile(fLicenseFile);
         rValidFor := tRegistry.Create;
-        rValidFor.OpenKey('Software\IWD\POS2.0\ExpirationDate', True);
-        rValidFor.WriteString('Value2',
-          jResponse.GetValue<string>('date_expiry'));
-        rValidFor.WriteString('Value',
-          jResponse.GetValue<string>('date_renewed'));
-        rValidFor.Free;
-      end
-      else
-      begin
-        sHashed := THashSHA2.GetHashString(sLicenseKey);
-        for I := 1 to Length(sHashed) do
+        rValidFor.OpenKey('Software\IWD\POS2.0\RegInfo', True);
+        sDate := jResponse.GetValue<string>('date_renewed');
+        for I := 1 to Length(sDate) do
         begin
-          case sHashed[I] of
-            'b':
-              sTemp := sTemp + 'f';
-            '5':
-              sTemp := sTemp + '5';
-            'd':
-              sTemp := sTemp + 'q';
-            '9':
-              sTemp := sTemp + '6';
-            '2':
-              sTemp := sTemp + 'z';
-            'c':
-              sTemp := sTemp + 'a';
-            '3':
-              sTemp := sTemp + 'g';
-            '7':
-              sTemp := sTemp + 'y';
-            'a':
-              sTemp := sTemp + 'p';
+
+          iPos := Pos('-', sDate);
+          if iPos <> 0 then
+          begin
+            Delete(sDate, iPos, 1);
+            Insert('/', sDate, iPos);
           end;
         end;
-        for I := 1 to 10 do
+        sDateTemp := sDate;
+        sDate := Copy(sDateTemp, 6, 3);
+        sDate := sDate + Copy(sDateTemp, 9, 2);
+        sDate := sDate + '/' + Copy(sDateTemp, 1, 4);
+        dActivationDate := StrToDate(sDate);
+        rValidFor.WriteDate('Value', dActivationDate);
+        sDate := jResponse.GetValue<string>('date_expiry');
+        for I := 1 to Length(sDate) do
         begin
-          sTemp := sHashed + sTemp + sHashed + sTemp + sTemp;
+
+          iPos := Pos('-', sDate);
+          if iPos <> 0 then
+          begin
+            Delete(sDate, iPos, 1);
+            Insert('/', sDate, iPos);
+          end;
         end;
-        Reset(fLicenseFile);
-        Readln(fLicenseFile, sOld);
-        if sTemp = sOld then
-        begin
-          MessageDlg('License Key Expired', mtError, [mbOK], 0);
-          Application.Terminate;
-          Exit;
-        end;
+        sDateTemp := sDate;
+        sDate := Copy(sDateTemp, 6, 3);
+        sDate := sDate + Copy(sDateTemp, 9, 2);
+        sDate := sDate + '/' + Copy(sDateTemp, 1, 4);
+        dExpirationDate := StrToDate(sDate);
+        rValidFor.WriteInteger('Days', DaysBetween(dActivationDate,
+          dExpirationDate));
+        rValidFor.WriteString('LicKey', sLicenseKey);
+        rValidFor.WriteString('RegTo', sNameCompany);
       end;
     end;
+
   except
     MessageDlg
       ('License Activation Failed. Please Check your internet connection.',
@@ -328,7 +318,7 @@ end;
 
 procedure TfrmLogin.TerminateApplication;
 begin
- Application.Terminate;
+  Application.Terminate;
 end;
 
 end.

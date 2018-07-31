@@ -45,7 +45,7 @@ object frmStockManager: TfrmStockManager
   object dbgrdStockView: TDBGrid
     Left = 8
     Top = 40
-    Width = 849
+    Width = 841
     Height = 551
     DataSource = dsStock
     TabOrder = 0

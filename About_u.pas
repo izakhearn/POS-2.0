@@ -15,6 +15,7 @@ type
     Copyright: TLabel;
     Comments: TLabel;
     OKButton: TButton;
+    procedure OKButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,5 +29,9 @@ implementation
 
 {$R *.dfm}
 
+procedure TAboutBox.OKButtonClick(Sender: TObject);
+begin
+  Hide;
+end;
+
 end.
- 

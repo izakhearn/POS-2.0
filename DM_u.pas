@@ -3,7 +3,8 @@ unit DM_u;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.Win.ADODB, Data.DB, Winapi.Windows,About_u;
+  System.SysUtils, System.Classes, Data.Win.ADODB, Data.DB, Winapi.Windows,
+  About_u;
 
 type
   TDataModule1 = class(TDataModule)
@@ -22,14 +23,15 @@ var
   DataModule1: TDataModule1;
 
 implementation
+
 uses
- Login_u;
+  Login_u;
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 {$R *.dfm}
 
 procedure TDataModule1.CloseApplication;
 begin
- frmLogin.TerminateApplication;
+  frmLogin.TerminateApplication;
 end;
 
 procedure TDataModule1.DataModuleCreate(Sender: TObject);
@@ -38,14 +40,14 @@ var
 begin
   sWorkingDataDir := GetEnvironmentVariable('APPDATA') +
     '\POS 2.0\Transactions';
-    //Check To see if the folder exists if its not there create it
+  // Check To see if the folder exists if its not there create it
   if DirectoryExists(sWorkingDataDir) = False then
   begin
     CreateDir(sWorkingDataDir);
   end;
-  //Gets the user app data dir
+  // Gets the user app data dir
   sUserAppDataDir := GetEnvironmentVariable('APPDATA');
-  //Connects to the DB
+  // Connects to the DB
   conMain.Connected := False;
   conMain.ConnectionString :=
     'Provider=Microsoft.ACE.OLEDB.12.0;User ID=Admin;Data' + ' Source=' +
@@ -63,12 +65,12 @@ end;
 
 procedure TDataModule1.Logout;
 begin
- Login_u.frmLogin.Show;
+  Login_u.frmLogin.Show;
 end;
 
 procedure TDataModule1.ShowAbout;
 begin
- AboutBox.Show;
+  AboutBox.Show;
 end;
 
 end.

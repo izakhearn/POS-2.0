@@ -60,7 +60,7 @@ uses
 
 procedure TfrmSales.About1Click(Sender: TObject);
 begin
- DataModule1.ShowAbout;
+  DataModule1.ShowAbout;
 end;
 
 procedure TfrmSales.btnCancelSaleClick(Sender: TObject);
@@ -274,7 +274,7 @@ end;
 
 procedure TfrmSales.Exit1Click(Sender: TObject);
 begin
- DataModule1.CloseApplication;
+  DataModule1.CloseApplication;
 end;
 
 procedure TfrmSales.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -317,7 +317,7 @@ procedure TfrmSales.Logout1Click(Sender: TObject);
 begin
   Hide;
 
- DataModule1.Logout;
+  DataModule1.Logout;
 end;
 
 end.
