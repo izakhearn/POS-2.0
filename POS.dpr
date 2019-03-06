@@ -24,7 +24,8 @@ uses
   dmWebServer_u in 'dmWebServer_u.pas' {dmHttpServer: TDataModule},
   About_u in 'About_u.pas' {AboutBox},
   GiftCard_u in 'GiftCard_u.pas' {frmGiftCards},
-  AddCard_u in 'AddCard_u.pas' {frmAddCard};
+  AddCard_u in 'AddCard_u.pas' {frmAddCard},
+  EditCard_u in 'EditCard_u.pas' {frmEditCard};
 
 {$R *.res}
 
@@ -50,6 +51,7 @@ begin
   Application.CreateForm(TAboutBox, AboutBox);
   Application.CreateForm(TfrmGiftCards, frmGiftCards);
   Application.CreateForm(TfrmAddCard, frmAddCard);
+  Application.CreateForm(TfrmEditCard, frmEditCard);
   Application.Run;
 
 end.

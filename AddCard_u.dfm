@@ -2,7 +2,7 @@ object frmAddCard: TfrmAddCard
   Left = 0
   Top = 0
   Caption = 'Add New Gift Card'
-  ClientHeight = 416
+  ClientHeight = 254
   ClientWidth = 312
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -73,16 +73,16 @@ object frmAddCard: TfrmAddCard
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'SELECT * FROM Employees')
-    Left = 124
-    Top = 256
+      'SELECT *  FROM GiftCard')
+    Left = 100
+    Top = 240
   end
   object tblAddCard: TADOTable
     Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
-    TableName = 'Employees'
-    Left = 40
-    Top = 248
+    TableName = 'GiftCard'
+    Left = 32
+    Top = 240
   end
 end

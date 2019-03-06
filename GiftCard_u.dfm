@@ -11,8 +11,10 @@ object frmGiftCards: TfrmGiftCards
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object dbgrdGiftCardList: TDBGrid
@@ -41,6 +43,52 @@ object frmGiftCards: TfrmGiftCards
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    OnClick = btnNewCardClick
+  end
+  object btnEditCard: TBitBtn
+    Left = 712
+    Top = 63
+    Width = 297
+    Height = 41
+    Caption = 'Edit Gift Card'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 30
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnClick = btnEditCardClick
+  end
+  object btnReloadCard: TBitBtn
+    Left = 712
+    Top = 119
+    Width = 297
+    Height = 41
+    Caption = 'Reload Card'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 30
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btnReloadCardClick
+  end
+  object btnGenerateReport: TBitBtn
+    Left = 712
+    Top = 175
+    Width = 297
+    Height = 41
+    Caption = 'Generate Report'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 30
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnClick = btnGenerateReportClick
   end
   object dsGiftCard: TDataSource
     DataSet = qryGiftCard
@@ -55,6 +103,14 @@ object frmGiftCards: TfrmGiftCards
     SQL.Strings = (
       'SELECT * FROM GiftCard')
     Left = 824
+    Top = 432
+  end
+  object tblCardBal: TADOTable
+    Active = True
+    Connection = DataModule1.conMain
+    CursorType = ctStatic
+    TableName = 'GiftCard'
+    Left = 896
     Top = 432
   end
 end

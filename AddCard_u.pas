@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DM_u, GiftCard_u, Data.Win.ADODB,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DM_u, Data.Win.ADODB,
   Data.DB, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
@@ -27,7 +27,8 @@ var
   frmAddCard: TfrmAddCard;
 
 implementation
-
+  uses
+  GiftCard_u;
 {$R *.dfm}
 
 procedure TfrmAddCard.btnCreateCardClick(Sender: TObject);
@@ -49,14 +50,14 @@ if (lbledtCardNumber.Text = '') or (lbledtOwnerName.Text = '') or
   with qryAddCard do
   begin
     SQL.Text :=
-      'INSERT INTO GiftCard ([GiftCardNum],[OwnerName],[OwnerSurname],[CardBalance],[Username]) VALUES (:CardNum,:OName,:OSurname,:CBal)';
+      'INSERT INTO GiftCard ([GiftCardNum],[OwnerName],[OwnerSurname],[CardBalance]) VALUES (:CardNum,:OName,:OSurname,:CBal)';
     Parameters.ParamByName('CardNum').Value := lbledtCardNumber.Text;
     Parameters.ParamByName('OName').Value := lbledtOwnerName.Text;
     Parameters.ParamByName('OSurname').Value := lbledtCardOwnerSurname.Text;
     Parameters.ParamByName('CBal').Value := lbledtStartingBal.Text;
     ExecSQL;
   end;
-  ShowMessage('Employee successfully added.');
+  ShowMessage('Card successfully created.');
   Hide;
 end;
 

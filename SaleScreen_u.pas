@@ -151,14 +151,14 @@ begin
   begin
     objStock.RemoveStock(arrItemsScanned[I], 1);
   end;
-  objPrint := TPrintSlip.Create(sgdSales, FloatToStrF(rTotal, ffCurrency, 10,
+  {objPrint := TPrintSlip.Create(sgdSales, FloatToStrF(rTotal, ffCurrency, 10,
     2), FloatToStrF(rAmountPaid, ffCurrency, 10, 2),
     FloatToStrF(rAmountPaid - rTotal, ffCurrency, 10, 2),
     FloatToStrF(rVAT, ffCurrency, 10, 2), 'POS 2.0' + #13 +
     ' Transaction Time : ' + DateTimeToStr(Now) + #13 + 'Transaction #' +
     IntToStr(iTransactionID));
   objPrint.StartPrint;
-  objPrint.Free;
+  objPrint.Free;}
   for I := 1 to 100000 do
     arrItemsScanned[I] := '';
   for I := 1 to iAmountItems do
