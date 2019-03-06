@@ -22,6 +22,7 @@ type
     Exit1: TMenuItem;
     Actions1: TMenuItem;
     Logout1: TMenuItem;
+    btnGiftCards: TBitBtn;
     procedure btnViewTransactionsClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnEmployeeManagerClick(Sender: TObject);
@@ -32,6 +33,7 @@ type
     procedure About1Click(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
     procedure Logout1Click(Sender: TObject);
+    procedure btnGiftCardsClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,7 +46,7 @@ var
 implementation
 
 uses
-  Login_u, Transactions_u, EmployeeManager_u, StockManager_u, ProductManager_u;
+  Login_u, Transactions_u, EmployeeManager_u, StockManager_u, ProductManager_u,GiftCard_u;
 {$R *.dfm}
 
 procedure TfrmAdmin.About1Click(Sender: TObject);
@@ -55,6 +57,12 @@ end;
 procedure TfrmAdmin.btnEmployeeManagerClick(Sender: TObject);
 begin
   frmEmployeeManager.Show;
+end;
+
+procedure TfrmAdmin.btnGiftCardsClick(Sender: TObject);
+begin
+ frmGiftCards.Show;
+ Hide;
 end;
 
 procedure TfrmAdmin.btnManageProductsClick(Sender: TObject);

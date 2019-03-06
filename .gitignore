@@ -2,3 +2,5 @@
 __history/
 
 Win32/Debug/
+
+*.laccdb

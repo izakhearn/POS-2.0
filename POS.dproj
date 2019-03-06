@@ -177,6 +177,14 @@
             <Form>AboutBox</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="GiftCard_u.pas">
+            <Form>frmGiftCards</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="AddCard_u.pas">
+            <Form>frmAddCard</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

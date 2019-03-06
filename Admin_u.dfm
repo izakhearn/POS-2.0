@@ -2,7 +2,7 @@ object frmAdmin: TfrmAdmin
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Admin'
-  ClientHeight = 523
+  ClientHeight = 538
   ClientWidth = 601
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -47,7 +47,7 @@ object frmAdmin: TfrmAdmin
   end
   object btnViewStock: TButton
     Left = 136
-    Top = 150
+    Top = 135
     Width = 297
     Height = 75
     Caption = 'View Stock'
@@ -62,7 +62,7 @@ object frmAdmin: TfrmAdmin
   end
   object btnManageProducts: TBitBtn
     Left = 136
-    Top = 246
+    Top = 216
     Width = 297
     Height = 75
     Caption = 'Product Manager'
@@ -77,7 +77,7 @@ object frmAdmin: TfrmAdmin
   end
   object btnEmployeeManager: TBitBtn
     Left = 136
-    Top = 342
+    Top = 297
     Width = 297
     Height = 75
     Caption = 'Employee Manager'
@@ -92,7 +92,7 @@ object frmAdmin: TfrmAdmin
   end
   object btnViewReports: TBitBtn
     Left = 136
-    Top = 436
+    Top = 459
     Width = 297
     Height = 75
     Caption = 'View Reports'
@@ -104,6 +104,21 @@ object frmAdmin: TfrmAdmin
     ParentFont = False
     TabOrder = 4
     OnClick = btnViewReportsClick
+  end
+  object btnGiftCards: TBitBtn
+    Left = 136
+    Top = 378
+    Width = 297
+    Height = 75
+    Caption = 'Gift Cards'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 30
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+    OnClick = btnGiftCardsClick
   end
   object mmHead: TMainMenu
     Left = 32
