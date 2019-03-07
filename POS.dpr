@@ -25,7 +25,8 @@ uses
   About_u in 'About_u.pas' {AboutBox},
   GiftCard_u in 'GiftCard_u.pas' {frmGiftCards},
   AddCard_u in 'AddCard_u.pas' {frmAddCard},
-  EditCard_u in 'EditCard_u.pas' {frmEditCard};
+  EditCard_u in 'EditCard_u.pas' {frmEditCard},
+  clsGiftCard in 'clsGiftCard.pas';
 
 {$R *.res}
 

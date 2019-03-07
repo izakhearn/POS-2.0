@@ -2,7 +2,7 @@ object frmSales: TfrmSales
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Sales'
-  ClientHeight = 615
+  ClientHeight = 620
   ClientWidth = 1121
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -125,6 +125,21 @@ object frmSales: TfrmSales
     ParentFont = False
     TabOrder = 3
     OnClick = btnCancelSaleClick
+  end
+  object btnCheckCardBal: TBitBtn
+    Left = 752
+    Top = 368
+    Width = 249
+    Height = 65
+    Caption = 'Check Card Balance'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 30
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnClick = btnCheckCardBalClick
   end
   object qrySales: TADOQuery
     Active = True

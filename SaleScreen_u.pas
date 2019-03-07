@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, DM_u,
   Data.DB, Data.Win.ADODB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, clsEmployeeInfo,
-  clsStockManagement_u, clsPrintSlip, Vcl.Menus;
+  clsStockManagement_u, clsPrintSlip, Vcl.Menus,clsGiftCard;
 
 type
   TfrmSales = class(TForm)
@@ -26,6 +26,7 @@ type
     Exit1: TMenuItem;
     Actions1: TMenuItem;
     Logout1: TMenuItem;
+    btnCheckCardBal: TBitBtn;
     procedure edtBarcodeKeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
     procedure btnCancelSaleClick(Sender: TObject);
@@ -34,6 +35,7 @@ type
     procedure About1Click(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
     procedure Logout1Click(Sender: TObject);
+    procedure btnCheckCardBalClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -43,6 +45,7 @@ type
     ObjEmployeeInfoUse: TEmployeeInfo;
     objStock: TStockManagment;
     objPrint: TPrintSlip;
+    objGiftCard: TGiftCard;
   public
     property ObjEmployeeInfo: TEmployeeInfo read ObjEmployeeInfoUse
       write ObjEmployeeInfoUse;
@@ -92,15 +95,45 @@ begin
   edtBarcode.SetFocus;
 end;
 
+procedure TfrmSales.btnCheckCardBalClick(Sender: TObject);
+var
+  sTemp : string;
+  rTemp : Real;
+begin
+  sTemp := InputBox('Scan Gift Card','Please Scan Card Now.','');
+ objGiftCard:= TGiftCard.Create(sTemp);
+ rTemp := objGiftCard.GetCurrBal;
+  MessageDlg('The Cards current balance is :'+FloatToStrF(rTemp,ffCurrency,10,2),mtConfirmation,[mbOK],0);
+  objGiftCard.Free;
+end;
+
 procedure TfrmSales.btnEndSaleClick(Sender: TObject);
 var
-  sTemp, sUserAppDataDir: string;
+  sTemp, sUserAppDataDir,sCardNumber: string;
   iTransactionID, iLoop, iLoop2: Integer;
+  bCardSuccessfull : Boolean;
   TransactionFile: TextFile;
-  I: Integer;
+  I,iCardPayment: Integer;
 begin
   objStock := TStockManagment.Create;
   sUserAppDataDir := GetEnvironmentVariable('APPDATA');
+   iCardPayment:= MessageDlg('Is the user Paying with a gift card?',mtWarning,[mbYes,mbNo],0);
+   if iCardPayment = mrYes then
+   begin
+    sCardNumber:= InputBox('Please Scan Card','Please Scan Card Barcode Now','');
+    objGiftCard:= TGiftCard.Create(sCardNumber);
+    bCardSuccessfull:= objGiftCard.CompletePayment(rTotal);
+    sTemp:= FloatToStrF(rTotal,ffGeneral,10,2);
+    if bCardSuccessfull = False then
+    begin
+      MessageDlg('Transaction Voided',mtError,[mbOK],0);
+      btnCancelSale.Click;
+      Exit;
+    end;
+   end
+   else
+   begin
+   sCardNumber:= 'COD';
   sTemp := InputBox('Amount Paid', 'Enter Amount Paid', '');
   if sTemp = '' then
   begin
@@ -114,19 +147,20 @@ begin
       ('The value entred is smaller than the total cost of the Sale. Please Try Again');
     Exit;
   end;
-
+  end;
   rAmountPaid := StrToFloat(sTemp);
   ShowMessage('Change ' + FloatToStrF(rAmountPaid - rTotal, ffCurrency, 10, 2));
   with qrySales do
   begin
     SQL.Text :=
-      'INSERT INTO Transactions ([Employee-ID],[Total-Cost],[Amount-Paid],[Amount-Items],[Date-When]) VALUES (:EmployeeID,:AmountCost,:AmountPaid,:AmountItems,:DateWhen)';
+      'INSERT INTO Transactions ([Employee-ID],[Total-Cost],[Amount-Paid],[Amount-Items],[Date-When],[GiftCardNum]) VALUES (:EmployeeID,:AmountCost,:AmountPaid,:AmountItems,:DateWhen,:CardNum)';
     Parameters.ParamByName('EmployeeID').Value := ObjEmployeeInfo.GetID;
     Parameters.ParamByName('AmountPaid').Value := rAmountPaid;
     Parameters.ParamByName('AmountItems').Value := iAmountItems;
     Parameters.ParamByName('AmountCost').Value := rTotal;
     Parameters.ParamByName('DateWhen').Value := DateToStr(Date) + ' ' +
       TimeToStr(Time);
+    Parameters.ParamByName('CardNum').Value := sCardNumber;
     ExecSQL;
     SQL.Text := 'Select * FROM Transactions ORDER BY ID DESC ';
     ExecSQL;

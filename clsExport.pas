@@ -152,6 +152,7 @@ begin
     end;
     Writeln(HTMLFile, '<th>' + floattostrf(rSum, ffFixed, 100, 0) + '</th>');
     Writeln(HTMLFile, '<th> </th>');
+    Writeln(HTMLFile, '<th> </th>');
     Writeln(HTMLFile, '</tr>');
 
   end;
