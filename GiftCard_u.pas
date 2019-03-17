@@ -78,7 +78,7 @@ begin
   begin
     Locate('GiftCardNum', frmGiftCards.sCardNum, []);
     Edit;
-    FieldByName('CardBalance').AsCurrency := rBal+rTemp;
+    FieldByName('CardBalance').AsFloat := rBal+rTemp;
     Post;
     ShowMessage('Card Balance Sucessfully Updated');
   end;

@@ -122,6 +122,9 @@ end;
 
 procedure TfrmProductManager.FormShow(Sender: TObject);
 begin
+qryProducts.Active:= False;
+ dsProducts.Enabled:=False;
+ tblDeleteProduct.Active:= False;
  qryProducts.Active:= True;
  dsProducts.Enabled:=True;
  tblDeleteProduct.Active:= True;

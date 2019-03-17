@@ -51,13 +51,17 @@ if (lbledtCardNumber.Text = '') or (lbledtOwnerName.Text = '') or
   with qryAddCard do
   begin
     SQL.Text :=
-      'INSERT INTO GiftCard ([GiftCardNum],[OwnerName],[OwnerSurname],[CardBalance]) VALUES (:CardNum,:OName,:OSurname,:CBal)';
+      'INSERT INTO GiftCard (GiftCardNum,OwnerName,OwnerSurname,CardBalance) VALUES (:CardNum,:OName,:OSurname,:CBal)';
     Parameters.ParamByName('CardNum').Value := lbledtCardNumber.Text;
     Parameters.ParamByName('OName').Value := lbledtOwnerName.Text;
     Parameters.ParamByName('OSurname').Value := lbledtCardOwnerSurname.Text;
     Parameters.ParamByName('CBal').Value := lbledtStartingBal.Text;
     ExecSQL;
   end;
+  lbledtCardNumber.Text:= '';
+  lbledtOwnerName.Text:='';
+  lbledtCardOwnerSurname.Text:='';
+  lbledtStartingBal.Text:='';
   ShowMessage('Card successfully created.');
   Hide;
 end;

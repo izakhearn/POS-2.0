@@ -25,6 +25,7 @@ type
     procedure btnAddEmployeeClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnGenerateReportClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -133,6 +134,12 @@ begin
   MessageDlg('Report Generated', mtInformation, [mbOK], 0);
 end;
 
+procedure TfrmEmployeeManager.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  frmAdmin.Show;
+end;
+
 procedure TfrmEmployeeManager.FormCreate(Sender: TObject);
 begin
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
@@ -142,6 +149,7 @@ procedure TfrmEmployeeManager.FormShow(Sender: TObject);
 begin
   qryEmployees.Active := False;
   dsEmployees.Enabled := False;
+  tblDeleteEmployee.Active:=False;
   qryEmployees.Active := True;
   dsEmployees.Enabled := True;
   tblDeleteEmployee.Active:=True;

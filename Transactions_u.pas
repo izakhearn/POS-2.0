@@ -167,7 +167,9 @@ begin
   qryTransactions.Active := True;
   dsTransactions.Enabled := False;
   dsTransactions.Enabled := True;
+  qryEmployeeInfo.Active:= False;
   qryEmployeeInfo.Active:= True;
+  tblTransactionDetails.Active:=False;
   tblTransactionDetails.Active:=True;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;

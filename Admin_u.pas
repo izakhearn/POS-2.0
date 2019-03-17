@@ -57,6 +57,7 @@ end;
 procedure TfrmAdmin.btnEmployeeManagerClick(Sender: TObject);
 begin
   frmEmployeeManager.Show;
+  Hide;
 end;
 
 procedure TfrmAdmin.btnGiftCardsClick(Sender: TObject);

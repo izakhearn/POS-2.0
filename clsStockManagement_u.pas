@@ -140,7 +140,7 @@ begin
       FieldByName('ProductAmountAvailable').AsInteger := fAmountAvailable -
         iAmountRemove;
       Post;
-      ShowMessage('Stock Corrected');
+      //ShowMessage('Stock Corrected');
     end;
   end;
 end;
