@@ -3,7 +3,7 @@ object frmProductManager: TfrmProductManager
   Top = 0
   Caption = 'POS 2.0 Product Manager'
   ClientHeight = 536
-  ClientWidth = 1083
+  ClientWidth = 1125
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object frmProductManager: TfrmProductManager
   object dbgrdProductView: TDBGrid
     Left = 8
     Top = 24
-    Width = 697
+    Width = 753
     Height = 489
     DataSource = dsProducts
     TabOrder = 0
@@ -31,7 +31,7 @@ object frmProductManager: TfrmProductManager
     TitleFont.Style = []
   end
   object btnAddProduct: TBitBtn
-    Left = 721
+    Left = 773
     Top = 24
     Width = 344
     Height = 41
@@ -46,7 +46,7 @@ object frmProductManager: TfrmProductManager
     OnClick = btnAddProductClick
   end
   object btnEditProduct: TBitBtn
-    Left = 721
+    Left = 773
     Top = 88
     Width = 344
     Height = 41
@@ -61,7 +61,7 @@ object frmProductManager: TfrmProductManager
     OnClick = btnEditProductClick
   end
   object btnDeleteProduct: TBitBtn
-    Left = 721
+    Left = 773
     Top = 151
     Width = 344
     Height = 41
@@ -76,7 +76,7 @@ object frmProductManager: TfrmProductManager
     OnClick = btnDeleteProductClick
   end
   object btnExportProducts: TBitBtn
-    Left = 721
+    Left = 773
     Top = 207
     Width = 344
     Height = 41
@@ -91,7 +91,7 @@ object frmProductManager: TfrmProductManager
     OnClick = btnExportProductsClick
   end
   object btnGeneratReport: TBitBtn
-    Left = 721
+    Left = 773
     Top = 263
     Width = 344
     Height = 41
@@ -113,19 +113,19 @@ object frmProductManager: TfrmProductManager
       
         'SELECT Barcode,ProductName,ProductCost,ProductSellPrice FROM Sto' +
         'ck')
-    Left = 752
-    Top = 472
+    Left = 776
+    Top = 312
   end
   object dsProducts: TDataSource
     DataSet = qryProducts
-    Left = 816
-    Top = 472
+    Left = 776
+    Top = 368
   end
   object tblDeleteProduct: TADOTable
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Stock'
-    Left = 880
-    Top = 472
+    Left = 776
+    Top = 416
   end
 end

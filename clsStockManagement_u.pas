@@ -132,6 +132,7 @@ begin
     Parameters.ParamByName('barcode').Value := fBarcode;
     ExecSQL;
     Open;
+    fAmountAvailable := FieldByName('ProductAmountAvailable').AsInteger;
     with tblStock do
     begin
       Locate('Barcode', fBarcode, []);
