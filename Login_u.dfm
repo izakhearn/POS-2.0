@@ -2,7 +2,7 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Login'
-  ClientHeight = 133
+  ClientHeight = 140
   ClientWidth = 263
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
