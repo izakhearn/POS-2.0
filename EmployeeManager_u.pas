@@ -135,9 +135,6 @@ end;
 
 procedure TfrmEmployeeManager.FormCreate(Sender: TObject);
 begin
-  dbgrdEmployees.Columns[0].Width := 50;
-  dbgrdEmployees.Columns[1].Width := 220;
-  dbgrdEmployees.Columns[2].Width := 220;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 
@@ -147,6 +144,7 @@ begin
   dsEmployees.Enabled := False;
   qryEmployees.Active := True;
   dsEmployees.Enabled := True;
+  tblDeleteEmployee.Active:=True;
   dbgrdEmployees.Columns[0].Width := 50;
   dbgrdEmployees.Columns[1].Width := 220;
   dbgrdEmployees.Columns[2].Width := 220;

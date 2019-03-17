@@ -40,6 +40,7 @@ var
   iRow, iCol, iTemp: Integer;
   TransactionFile: TextFile;
 begin
+  qryTransactionDetails.Active:= True;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
   sWorkingDataDir := GetEnvironmentVariable('APPDATA') +
     '\POS 2.0\Transactions\';
@@ -55,16 +56,16 @@ begin
     Parameters.ParamByName('id').Value := sTransactionID;
     ExecSQL;
     Open;
-    lblTime.Caption := FieldByName('Date-When').AsString;
+    lblTime.Caption := FieldByName('DateWhen').AsString;
     lblTotalCost.Caption := lblTotalCost.Caption + '' +
-      FieldByName('Total-Cost').AsString;
+      FieldByName('TotalCost').AsString;
     lblEmployeeID.Caption := lblEmployeeID.Caption + '' +
-      FieldByName('Employee-ID').AsString;
+      FieldByName('EmployeeID').AsString;
     lblTransactionID.Caption := lblTransactionID.Caption + '' + sTransactionID;
     lblAmountPaid.Caption := lblAmountPaid.Caption + '' +
-      FloatToStrF(FieldByName('Amount-Paid').AsFloat, ffCurrency, 10, 2);
+      FloatToStrF(FieldByName('AmountPaid').AsFloat, ffCurrency, 10, 2);
     lblAmountOfItems.Caption := lblAmountOfItems.Caption + '' +
-      FieldByName('Amount-Items').AsString;
+      FieldByName('AmountItems').AsString;
   end;
   AssignFile(TransactionFile, sWorkingDataDir + sTransactionID);
   try

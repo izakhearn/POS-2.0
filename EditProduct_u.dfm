@@ -11,6 +11,7 @@ object frmEditProduct: TfrmEditProduct
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -135,7 +136,6 @@ object frmEditProduct: TfrmEditProduct
     OnClick = btnUpdateProductClick
   end
   object tblEditProduct: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Stock'
@@ -143,7 +143,6 @@ object frmEditProduct: TfrmEditProduct
     Top = 176
   end
   object qryEditProduct: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>

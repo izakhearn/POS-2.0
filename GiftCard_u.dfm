@@ -11,6 +11,7 @@ object frmGiftCards: TfrmGiftCards
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -96,7 +97,6 @@ object frmGiftCards: TfrmGiftCards
     Top = 432
   end
   object qryGiftCard: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
@@ -106,7 +106,6 @@ object frmGiftCards: TfrmGiftCards
     Top = 432
   end
   object tblCardBal: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'GiftCard'

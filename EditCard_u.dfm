@@ -68,7 +68,6 @@ object frmEditCard: TfrmEditCard
     OnClick = btnUpdateCardClick
   end
   object qryEditCard: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
@@ -78,7 +77,6 @@ object frmEditCard: TfrmEditCard
     Top = 240
   end
   object tblEditCard: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'GiftCard'

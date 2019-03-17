@@ -11,6 +11,7 @@ object frmTransactionsDetails: TfrmTransactionsDetails
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -129,7 +130,6 @@ object frmTransactionsDetails: TfrmTransactionsDetails
       24)
   end
   object qryTransactionDetails: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>

@@ -51,13 +51,13 @@ begin
     Parameters.ParamByName('barcode').Value := fBarcode;
     ExecSQL;
     Open;
-    fAmountAvailable := FieldByName('Product-Amount-Available').AsInteger;
+    fAmountAvailable := FieldByName('ProductAmountAvailable').AsInteger;
     // UPDATE THE TABLE NOW
     with tblStock do
     begin
       Locate('Barcode', fBarcode, []);
       Edit;
-      FieldByName('Product-Amount-Available').AsInteger := fAmountAvailable +
+      FieldByName('ProductAmountAvailable').AsInteger := fAmountAvailable +
         iAmountAdd;
       Post;
       ShowMessage('Stock Added');
@@ -76,8 +76,8 @@ begin
     Parameters.ParamByName('barcode').Value := fBarcode;
     ExecSQL;
     Open;
-    fTemp := FieldByName('Product-Name').AsString;
-    fTemp := fTemp + ',' + FieldByName('Product-Sell-Price').AsString;
+    fTemp := FieldByName('ProductName').AsString;
+    fTemp := fTemp + ',' + FieldByName('ProductSellPrice').AsString;
   end;
   Result := fTemp;
 end;
@@ -91,7 +91,7 @@ begin
     Parameters.ParamByName('barcode').Value := fBarcode;
     ExecSQL;
     Open;
-    Result := FieldByName('Product-Name').AsString;
+    Result := FieldByName('ProductName').AsString;
   end;
 end;
 
@@ -104,7 +104,7 @@ begin
     Parameters.ParamByName('barcode').Value := fBarcode;
     ExecSQL;
     Open;
-    Result := FieldByName('Product-Sell-Price').AsFloat;
+    Result := FieldByName('ProductSellPrice').AsFloat;
   end;
 end;
 
@@ -117,7 +117,7 @@ begin
     Parameters.ParamByName('barcode').Value := fBarcode;
     ExecSQL;
     Open;
-    Result := FieldByName('Product-Amount-Available').AsInteger;
+    Result := FieldByName('ProductAmountAvailable').AsInteger;
   end;
 end;
 
@@ -136,7 +136,7 @@ begin
     begin
       Locate('Barcode', fBarcode, []);
       Edit;
-      FieldByName('Product-Amount-Available').AsInteger := fAmountAvailable -
+      FieldByName('ProductAmountAvailable').AsInteger := fAmountAvailable -
         iAmountRemove;
       Post;
       ShowMessage('Stock Corrected');

@@ -93,7 +93,6 @@ begin
   dbgrdGiftCardList.Columns[1].Width := 120;
   dbgrdGiftCardList.Columns[2].Width := 120;
   dbgrdGiftCardList.Columns[3].Width := 100;
-  dbgrdGiftCardList.Columns[4].Width := 100;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 
@@ -109,7 +108,6 @@ begin
   dbgrdGiftCardList.Columns[1].Width := 120;
   dbgrdGiftCardList.Columns[2].Width := 120;
   dbgrdGiftCardList.Columns[3].Width := 100;
-  dbgrdGiftCardList.Columns[4].Width := 100;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 
@@ -120,27 +118,21 @@ end;
 
 procedure TfrmGiftCards.FormCreate(Sender: TObject);
 begin
-  dbgrdGiftCardList.Columns[0].Width := 225;
-  dbgrdGiftCardList.Columns[1].Width := 120;
-  dbgrdGiftCardList.Columns[2].Width := 120;
-  dbgrdGiftCardList.Columns[3].Width := 100;
-  dbgrdGiftCardList.Columns[4].Width := 100;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 
 procedure TfrmGiftCards.FormShow(Sender: TObject);
 begin
+qryGiftCard.Active:= True;
+tblCardBal.Active:= True;
+dsGiftCard.Enabled:= False;
+dsGiftCard.Enabled:= True;
  with qryGiftCard do
   begin
     SQL.Text := 'SELECT * FROM GiftCard';
     ExecSQL;
     Open;
   end;
-  dbgrdGiftCardList.Columns[0].Width := 225;
-  dbgrdGiftCardList.Columns[1].Width := 120;
-  dbgrdGiftCardList.Columns[2].Width := 120;
-  dbgrdGiftCardList.Columns[3].Width := 100;
-  dbgrdGiftCardList.Columns[4].Width := 100;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 

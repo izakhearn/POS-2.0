@@ -11,6 +11,7 @@ object frmAddEmployee: TfrmAddEmployee
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -94,7 +95,6 @@ object frmAddEmployee: TfrmAddEmployee
     TabOrder = 7
   end
   object qryAddEmployee: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
@@ -104,7 +104,6 @@ object frmAddEmployee: TfrmAddEmployee
     Top = 256
   end
   object tblAddEmployee: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Employees'

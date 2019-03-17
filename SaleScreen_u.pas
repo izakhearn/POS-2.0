@@ -153,7 +153,7 @@ begin
   with qrySales do
   begin
     SQL.Text :=
-      'INSERT INTO Transactions ([Employee-ID],[Total-Cost],[Amount-Paid],[Amount-Items],[Date-When],[GiftCardNum]) VALUES (:EmployeeID,:AmountCost,:AmountPaid,:AmountItems,:DateWhen,:CardNum)';
+      'INSERT INTO Transactions (EmployeeID,TotalCost,AmountPaid,AmountItems,DateWhen,GiftCardNum) VALUES (:EmployeeID,:AmountCost,:AmountPaid,:AmountItems,:DateWhen,:CardNum)';
     Parameters.ParamByName('EmployeeID').Value := ObjEmployeeInfo.GetID;
     Parameters.ParamByName('AmountPaid').Value := rAmountPaid;
     Parameters.ParamByName('AmountItems').Value := iAmountItems;
@@ -241,8 +241,8 @@ begin
         Parameters.ParamByName('barcode').Value := sBarcode;
         ExecSQL;
         Open;
-        sProductName := FieldByName('Product-Name').AsString;
-        rProductPrice := FieldByName('Product-Sell-Price').AsFloat;
+        sProductName := FieldByName('ProductName').AsString;
+        rProductPrice := FieldByName('ProductSellPrice').AsFloat;
       end;
       arrItemsScanned[iAmountItems + 1] := sBarcode;
       if bItemScanned = False then
@@ -345,6 +345,7 @@ begin
   edtBarcode.SetFocus;
   iAmountItemsDisplayed := 0;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+  tblStock.Active:= True;
 end;
 
 procedure TfrmSales.Logout1Click(Sender: TObject);

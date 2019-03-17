@@ -59,7 +59,7 @@ end;
 
 procedure TfrmLogin.btnLoginClick(Sender: TObject);
 var
-  bAdmin: Boolean;
+  iAdmin: Integer;
   sUsername: string;
   sPassword: UnicodeString;
   bVerify: Boolean;
@@ -72,11 +72,11 @@ begin
     Parameters.ParamByName('username').Value := edtUsername.Text;
     ExecSQL;
     Open;
-    bAdmin := FieldByName('Admin').AsBoolean;
+    iAdmin := FieldByName('Admin').AsInteger;
     sPassword := FieldByName('Password').AsString;
     sUsername := FieldByName('Username').AsString;
-    ObjEmployeeInfo := TEmployeeInfo.Create(FieldByName('Full-Name').AsString,
-      FieldByName('Surname').AsString, FieldByName('Cell-Phone').AsString,
+    ObjEmployeeInfo := TEmployeeInfo.Create(FieldByName('FullName').AsString,
+      FieldByName('Surname').AsString, FieldByName('CellPhone').AsString,
       FieldByName('Email').AsString, FieldByName('ID').AsInteger);
   end;
   if (edtPassword.Text = '') or (edtUsername.Text = '') then
@@ -101,7 +101,7 @@ begin
     edtUsername.SetFocus;
     Hide;
     MessageDlg('Log In Successful', mtInformation, [mbOK], 0);
-    if bAdmin = True then
+    if iAdmin = 1 then
     begin
       frmAdmin.Show;
     end

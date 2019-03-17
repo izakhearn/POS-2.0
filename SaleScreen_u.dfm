@@ -2,7 +2,7 @@ object frmSales: TfrmSales
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Sales'
-  ClientHeight = 620
+  ClientHeight = 580
   ClientWidth = 1121
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,6 +13,7 @@ object frmSales: TfrmSales
   Menu = mmHead
   OldCreateOrder = False
   Position = poScreenCenter
+  Scaled = False
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -142,7 +143,6 @@ object frmSales: TfrmSales
     OnClick = btnCheckCardBalClick
   end
   object qrySales: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
@@ -152,7 +152,6 @@ object frmSales: TfrmSales
     Top = 560
   end
   object tblStock: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Stock'

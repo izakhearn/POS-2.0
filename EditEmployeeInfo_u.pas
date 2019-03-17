@@ -50,7 +50,7 @@ begin
       TBCrypt.HashPassword(lbledtPassword.Text);
     FieldByName('Full-Name').AsString := lbledtName.Text;
     FieldByName('Surname').AsString := lbledtSurname.Text;
-    FieldByName('Cell-Phone').AsString := lbledtPhone.Text;
+    FieldByName('CellPhone').AsString := lbledtPhone.Text;
     FieldByName('Email').AsString := lbledtEmail.Text;
     FieldByName('Admin').AsBoolean := chkAdmin.Checked;
     Post;
@@ -71,9 +71,9 @@ begin
     Open;
     lbledtUsername.Text := FieldByName('Username').AsString;
     lbledtPassword.Text := FieldByName('Password').AsString;
-    lbledtName.Text := FieldByName('Full-Name').AsString;
+    lbledtName.Text := FieldByName('FullName').AsString;
     lbledtSurname.Text := FieldByName('Surname').AsString;
-    lbledtPhone.Text := FieldByName('Cell-Phone').AsString;
+    lbledtPhone.Text := FieldByName('CellPhone').AsString;
     lbledtEmail.Text := FieldByName('Email').AsString;
     chkAdmin.Checked := FieldByName('Admin').AsBoolean;
   end;
@@ -89,6 +89,8 @@ end;
 procedure TfrmEditEmployeeInfo.FormShow(Sender: TObject);
 begin
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+  qryEditEmployee.Active:= True;
+  tblEmployeeInfo.Active:= True;
 end;
 
 end.

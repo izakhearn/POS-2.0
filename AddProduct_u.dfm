@@ -11,6 +11,7 @@ object frmAddProduct: TfrmAddProduct
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -164,7 +165,6 @@ object frmAddProduct: TfrmAddProduct
     Top = 200
   end
   object tblAddProduct: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Stock'

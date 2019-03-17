@@ -33,6 +33,7 @@ type
     procedure btnAddStockClick(Sender: TObject);
     procedure btnExportStockClick(Sender: TObject);
     procedure btnGenerateReportClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     objStock: TStockManagment;
     { Private declarations }
@@ -126,7 +127,7 @@ begin
   with qryStockFilter do
   begin
     SQL.Text :=
-      'SELECT [Barcode],[Product-Name],[Product-Amount-Available] FROM Stock WHERE [Product-Amount-Available] <= :FilterAmount';
+      'SELECT Barcode,ProductName,ProductAmountAvailable FROM Stock WHERE ProductAmountAvailable <= :FilterAmount';
     Parameters.ParamByName('FilterAmount').Value := iUnder;
     ExecSQL;
     Open;
@@ -156,7 +157,7 @@ begin
   with qryStockFilter do
   begin
     SQL.Text :=
-      'SELECT [Barcode],[Product-Name],[Product-Amount-Available] FROM Stock';
+      'SELECT Barcode,ProductName,ProductAmountAvailable FROM Stock';
     ExecSQL;
     Open;
   end;
@@ -187,10 +188,13 @@ end;
 
 procedure TfrmStockManager.FormCreate(Sender: TObject);
 begin
-  dbgrdStockView.Columns[0].Width := 230;
-  dbgrdStockView.Columns[1].Width := 300;
-  dbgrdStockView.Columns[2].Width := 275;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+  qryStockFilter.Active:= True;
+end;
+
+procedure TfrmStockManager.FormShow(Sender: TObject);
+begin
+ qryStockFilter.Active:= True;
 end;
 
 end.

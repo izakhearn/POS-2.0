@@ -55,7 +55,7 @@ begin
   with qryAddProduct do
   begin
     SQL.Text :=
-      'INSERT INTO Stock ([Barcode],[Product-Name],[Product-Cost],[Product-Sell-Price],[Product-Amount-Available]) VALUES (:Barcode,:ProductName,:ProductCost,:ProductSell,:ProductAvailable)';
+      'INSERT INTO Stock (Barcode,ProductName,ProductCost,ProductSellPrice,ProductAmountAvailable) VALUES (:Barcode,:ProductName,:ProductCost,:ProductSell,:ProductAvailable)';
     Parameters.ParamByName('Barcode').Value := lbledtBarcode.Text;
     Parameters.ParamByName('ProductName').Value := lbledtProductName.Text;
     Parameters.ParamByName('ProductCost').Value := lbledtProductCost.Text;
@@ -97,6 +97,8 @@ end;
 procedure TfrmAddProduct.FormShow(Sender: TObject);
 begin
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+  tblAddProduct.Active:= True;
+  qryAddProduct.Active:= True;
 end;
 
 end.

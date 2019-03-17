@@ -52,7 +52,7 @@ begin
   with qryEditProduct do
   begin
     SQL.Text :=
-      'UPDATE [Product-Name],[Product-Sell-Price],[Product-Cost] VALUES (:PrdouctName,:ProductSellPrice,:ProductCost) FROM Stock WHERE Barcode=:barcode';
+      'UPDATE ProductName,ProductSellPrice,ProductCost VALUES (:PrdouctName,:ProductSellPrice,:ProductCost) FROM Stock WHERE Barcode=:barcode';
     Parameters.ParamByName('barcode').Value := sBarcode;
     Parameters.ParamByName('ProductName').Value := lbledtProductName.Text;
     Parameters.ParamByName('ProductCost').Value :=
@@ -76,6 +76,8 @@ end;
 
 procedure TfrmEditProduct.FormShow(Sender: TObject);
 begin
+  qryEditProduct.Active:= True;
+  tblEditProduct.Active:= True;
   lbledtBarcode.Text := sBarcode;
   with qryEditProduct do
   begin
@@ -83,9 +85,9 @@ begin
     Parameters.ParamByName('barcode').Value := sBarcode;
     ExecSQL;
     Open;
-    lbledtProductSell.Text := FieldByName('Product-Sell-Price').AsString;
-    lbledtProductCost.Text := FieldByName('Product-Cost').AsString;
-    lbledtProductName.Text := FieldByName('Product-Name').AsString;
+    lbledtProductSell.Text := FieldByName('ProductSellPrice').AsString;
+    lbledtProductCost.Text := FieldByName('ProductCost').AsString;
+    lbledtProductName.Text := FieldByName('ProductName').AsString;
   end;
 end;
 

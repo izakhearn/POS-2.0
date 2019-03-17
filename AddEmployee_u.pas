@@ -58,7 +58,7 @@ begin
   with qryAddEmployee do
   begin
     SQL.Text :=
-      'INSERT INTO Employees ([Full-Name],[Surname],[Email],[Cell-Phone],[Username],[Password],[Admin]) VALUES (:FullName,:surname,:email,:cell,:username,:password,:admin)';
+      'INSERT INTO Employees (FullName,Surname,Email,CellPhone,Username,Password,Admin) VALUES (:FullName,:surname,:email,:cell,:username,:password,:admin)';
     Parameters.ParamByName('FullName').Value := lbledtName.Text;
     Parameters.ParamByName('surname').Value := lbledtSurname.Text;
     Parameters.ParamByName('email').Value := lbledtEmail.Text;
@@ -78,6 +78,8 @@ end;
 procedure TfrmAddEmployee.FormShow(Sender: TObject);
 begin
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+  qryAddEmployee.Active:= True;
+  tblAddEmployee.Active:= True;
 end;
 
 end.

@@ -12,8 +12,10 @@ object frmStockManager: TfrmStockManager
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  Scaled = False
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lblFilter: TLabel
@@ -176,14 +178,11 @@ object frmStockManager: TfrmStockManager
     Top = 488
   end
   object qryStockFilter: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      
-        'Select [Barcode],[Product-Name],[Product-Amount-Available] from ' +
-        'Stock')
+      'Select Barcode,ProductName,ProductAmountAvailable from Stock')
     Left = 992
     Top = 488
   end

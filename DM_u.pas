@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.Win.ADODB, Data.DB, Winapi.Windows,
-  About_u;
+  About_u, Data.DBXMySQL, Data.SqlExpr,Vcl.Dialogs;
 
 type
   TDataModule1 = class(TDataModule)
@@ -36,7 +36,8 @@ end;
 
 procedure TDataModule1.DataModuleCreate(Sender: TObject);
 var
-  sUserAppDataDir, sWorkingDataDir: string;
+   sWorkingDataDir,sDataBase,sUser,sPassword,sServerAddress: string;
+   tDBConnectInfo : TextFile;
 begin
   sWorkingDataDir := GetEnvironmentVariable('APPDATA') +
     '\POS 2.0\Transactions';
@@ -45,23 +46,59 @@ begin
   begin
     CreateDir(sWorkingDataDir);
   end;
-  // Gets the user app data dir
-  sUserAppDataDir := GetEnvironmentVariable('APPDATA');
-  // Connects to the DB
-  conMain.Connected := False;
-  conMain.ConnectionString :=
-    'Provider=Microsoft.ACE.OLEDB.12.0;User ID=Admin;Data' + ' Source=' +
-    sUserAppDataDir + '\POS 2.0\Database.accdb;Mode=ReadWrite;P' +
-    'ersist Security Info=False;Jet OLEDB:System database="";Jet OLED' +
-    'B:Registry Path="";Jet OLEDB:Database Password="";Jet OLEDB:Engi' +
-    'ne Type=6;Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Global Par' +
-    'tial Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;Jet OLEDB:N' +
-    'ew Database Password="";Jet OLEDB:Create System Database=False;J' +
-    'et OLEDB:Encrypt Database=False;Jet OLEDB:Don'#39't Copy Locale on C' +
-    'ompact=False;Jet OLEDB:Compact Without Replica Repair=False;Jet ' +
-    'OLEDB:SFP=False;Jet OLEDB:Support Complex Data=False';
-  conMain.Connected := True;
+  AssignFile(tDBConnectInfo,GetEnvironmentVariable('APPDATA')+'\POS 2.0\DBInfo');
+  if FileExists(GetEnvironmentVariable('APPDATA')+'\POS 2.0\DBInfo')= False then
+  begin
+    sServerAddress:= InputBox('Server Address','Please enter your servers IP address','');
+    sDataBase := InputBox('Database name','Please enter the name of your database','');
+    sUser := InputBox('Database User','Please enter the database username','');
+    sPassword:= InputBox('Database Password','Please enter the database password','');
+    Rewrite(tDBConnectInfo);
+    Writeln(tDBConnectInfo,sServerAddress);
+    Writeln(tDBConnectInfo,sDataBase);
+    Writeln(tDBConnectInfo,sUser);
+    Writeln(tDBConnectInfo,sPassword);
+    CloseFile(tDBConnectInfo);
+  end
+  else
+  begin
+    Reset(tDBConnectInfo);
+    Readln(tDBConnectInfo,sServerAddress);
+    Readln(tDBConnectInfo,sDataBase);
+    Readln(tDBConnectInfo,sUser);
+    Readln(tDBConnectInfo,sPassword);
+    Close(tDBConnectInfo);
+  end;
+
+
+   Try
+
+    if conMain.Connected then  // already connected?
+    begin
+      MessageDlg('Already connected', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+
+    begin
+
+      conMain.LoginPrompt:=False;//dont ask for the login parameters
+      conMain.ConnectionString := 'Driver={MySQL ODBC 5.1 Driver};Server='+sServerAddress+';Database=' + sDatabase + ';User='+sUser+'; Password='+sPassword+';Option=3;';
+
+      conMain.Connected := True; //open the connection
+
+      MessageDlg('Connected to databse "' + sDataBase + '".', mtInformation, [mbOK], 0);
+    end;
+
+  Except
+    On E: Exception do
+    begin
+      Erase(tDBConnectInfo);
+      MessageDlg('Cannot connect to databse "' + sDataBase + '"!.' + #13 + #10 + 'Please report this problem (is MySql running?)', mtError, [mbOK], 0);
+      CloseApplication;
+    end;
+  end;
 end;
+
 
 procedure TDataModule1.Logout;
 begin

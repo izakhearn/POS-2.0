@@ -11,6 +11,7 @@ object frmEditEmployeeInfo: TfrmEditEmployeeInfo
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnActivate = FormActivate
   OnClose = FormClose
   OnShow = FormShow
@@ -108,7 +109,6 @@ object frmEditEmployeeInfo: TfrmEditEmployeeInfo
     TabOrder = 7
   end
   object qryEditEmployee: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
@@ -118,7 +118,6 @@ object frmEditEmployeeInfo: TfrmEditEmployeeInfo
     Top = 232
   end
   object tblEmployeeInfo: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Employees'

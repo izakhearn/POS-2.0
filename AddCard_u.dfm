@@ -11,6 +11,8 @@ object frmAddCard: TfrmAddCard
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lbledtCardNumber: TLabeledEdit
@@ -68,7 +70,6 @@ object frmAddCard: TfrmAddCard
     OnClick = btnCreateCardClick
   end
   object qryAddCard: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
@@ -78,7 +79,6 @@ object frmAddCard: TfrmAddCard
     Top = 240
   end
   object tblAddCard: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'GiftCard'

@@ -27,6 +27,7 @@ type
     procedure btnDeleteProductClick(Sender: TObject);
     procedure btnExportProductsClick(Sender: TObject);
     procedure btnGeneratReportClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,12 +54,6 @@ var
   sTemp: string;
 begin
   sTemp := InputBox('Product Barcode', 'Enter the barcode', '');
-  repeat
-  begin
-    ShowMessage('Please Retry');
-    sTemp := InputBox('Product Barcode', 'Enter the barcode', '');
-  end;
-  until sTemp <> '';
   iConfirmation := MessageDlg
     ('Are you sure you want to delete the Product with the Barcode of ' + sTemp,
     mtWarning, [mbYes, mbNo], 0);
@@ -122,11 +117,18 @@ end;
 
 procedure TfrmProductManager.FormCreate(Sender: TObject);
 begin
+  SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+end;
+
+procedure TfrmProductManager.FormShow(Sender: TObject);
+begin
+ qryProducts.Active:= True;
+ dsProducts.Enabled:=True;
+ tblDeleteProduct.Active:= True;
   dbgrdProductView.Columns[0].Width := 200;
   dbgrdProductView.Columns[1].Width := 270;
   dbgrdProductView.Columns[2].Width := 103;
   dbgrdProductView.Columns[3].Width := 103;
-  SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 
 end.

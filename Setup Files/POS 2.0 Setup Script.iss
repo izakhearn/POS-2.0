@@ -35,9 +35,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\Izak Hearn\Desktop\pos-2.0\Win32\Debug\POS.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Izak Hearn\Desktop\pos-2.0\Setup Files\Database.accdb"; DestDir: "{userappdata}\POS 2.0\"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "C:\Users\Izak Hearn\Desktop\pos-2.0\HTML Content\*"; DestDir: "{userappdata}\POS 2.0\HTML\"; Flags: ignoreversion
-Source: "C:\Users\Izak Hearn\Desktop\pos-2.0\Setup Files\AccessDatabaseEngine.exe"; DestDir: "{app}"; AfterInstall: RunDatabaseDriverInstaller; Flags : deleteafterinstall;
+Source: "C:\Users\Izak Hearn\Desktop\pos-2.0\Setup Files\MySQL Drive 5.1.msi"; DestDir: "{app}";Flags : deleteafterinstall;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -46,13 +45,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "msiexec.exe"; Parameters: "/i ""{app}\MySQL Drive 5.1.msi"" /qb"; WorkingDir: {app};
 
-[Code]
-procedure RunDatabaseDriverInstaller;
-var ResultCode : Integer;
-begin
-  Exec(ExpandConstant('{app}\AccessDatabaseEngine.exe'),'','',SW_SHOWNORMAL,
-  ewWaitUntilTerminated, ResultCode);
-end;
 
 

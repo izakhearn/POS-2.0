@@ -3,7 +3,7 @@ object frmTransactions: TfrmTransactions
   Top = 0
   Caption = 'POS 2.0 Transactions'
   ClientHeight = 644
-  ClientWidth = 962
+  ClientWidth = 1106
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,7 @@ object frmTransactions: TfrmTransactions
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -29,7 +30,7 @@ object frmTransactions: TfrmTransactions
     ParentFont = False
   end
   object lblFilterBy: TLabel
-    Left = 752
+    Left = 896
     Top = 219
     Width = 98
     Height = 30
@@ -42,7 +43,7 @@ object frmTransactions: TfrmTransactions
     ParentFont = False
   end
   object lblTo: TLabel
-    Left = 767
+    Left = 911
     Top = 311
     Width = 29
     Height = 30
@@ -55,7 +56,7 @@ object frmTransactions: TfrmTransactions
     ParentFont = False
   end
   object btnViewTransactionDetails: TBitBtn
-    Left = 625
+    Left = 769
     Top = 56
     Width = 321
     Height = 41
@@ -72,7 +73,7 @@ object frmTransactions: TfrmTransactions
   object dbgrdTransactions: TDBGrid
     Left = 8
     Top = 61
-    Width = 601
+    Width = 755
     Height = 580
     DataSource = dsTransactions
     ReadOnly = True
@@ -84,7 +85,7 @@ object frmTransactions: TfrmTransactions
     TitleFont.Style = []
   end
   object btnLookupEmployee: TBitBtn
-    Left = 625
+    Left = 769
     Top = 103
     Width = 321
     Height = 41
@@ -99,7 +100,7 @@ object frmTransactions: TfrmTransactions
     OnClick = btnLookupEmployeeClick
   end
   object dtpStart: TDateTimePicker
-    Left = 625
+    Left = 769
     Top = 311
     Width = 104
     Height = 30
@@ -108,7 +109,7 @@ object frmTransactions: TfrmTransactions
     TabOrder = 3
   end
   object dtpEnd: TDateTimePicker
-    Left = 833
+    Left = 977
     Top = 311
     Width = 104
     Height = 30
@@ -117,7 +118,7 @@ object frmTransactions: TfrmTransactions
     TabOrder = 4
   end
   object btnFilter: TBitBtn
-    Left = 625
+    Left = 769
     Top = 368
     Width = 312
     Height = 41
@@ -132,7 +133,7 @@ object frmTransactions: TfrmTransactions
     OnClick = btnFilterClick
   end
   object btnResetFilter: TBitBtn
-    Left = 625
+    Left = 769
     Top = 415
     Width = 312
     Height = 41
@@ -147,7 +148,7 @@ object frmTransactions: TfrmTransactions
     OnClick = btnResetFilterClick
   end
   object btnExportTransactions: TBitBtn
-    Left = 625
+    Left = 769
     Top = 462
     Width = 312
     Height = 41
@@ -162,7 +163,7 @@ object frmTransactions: TfrmTransactions
     OnClick = btnExportTransactionsClick
   end
   object btnGenerateReport: TBitBtn
-    Left = 625
+    Left = 769
     Top = 509
     Width = 312
     Height = 41
@@ -177,36 +178,33 @@ object frmTransactions: TfrmTransactions
     OnClick = btnGenerateReportClick
   end
   object qryTransactions: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'SELECT *  FROM Transactions ORDER BY ID DESC ')
-    Left = 768
+    Left = 912
     Top = 544
   end
   object dsTransactions: TDataSource
     DataSet = qryTransactions
-    Left = 864
+    Left = 1008
     Top = 544
   end
   object qryEmployeeInfo: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'Select * from employees')
-    Left = 672
+    Left = 816
     Top = 544
   end
   object tblTransactionDetails: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Transactions'
-    Left = 672
+    Left = 816
     Top = 592
   end
 end

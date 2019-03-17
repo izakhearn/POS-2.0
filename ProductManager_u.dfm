@@ -11,8 +11,10 @@ object frmProductManager: TfrmProductManager
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object dbgrdProductView: TDBGrid
@@ -104,14 +106,13 @@ object frmProductManager: TfrmProductManager
     OnClick = btnGeneratReportClick
   end
   object qryProducts: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       
-        'SELECT [Barcode],[Product-Name],[Product-Cost],[Product-Sell-Pri' +
-        'ce] FROM Stock')
+        'SELECT Barcode,ProductName,ProductCost,ProductSellPrice FROM Sto' +
+        'ck')
     Left = 752
     Top = 472
   end
@@ -121,11 +122,10 @@ object frmProductManager: TfrmProductManager
     Top = 472
   end
   object tblDeleteProduct: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
-    TableName = 'Employees'
-    Left = 888
-    Top = 464
+    TableName = 'Stock'
+    Left = 880
+    Top = 472
   end
 end

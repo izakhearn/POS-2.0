@@ -2,7 +2,7 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Login'
-  ClientHeight = 170
+  ClientHeight = 134
   ClientWidth = 263
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,13 +13,14 @@ object frmLogin: TfrmLogin
   Menu = mmHead
   OldCreateOrder = False
   Position = poScreenCenter
+  Scaled = False
   OnActivate = FormActivate
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object btnLogin: TBitBtn
     Left = 8
-    Top = 80
+    Top = 67
     Width = 243
     Height = 59
     Caption = 'Login'

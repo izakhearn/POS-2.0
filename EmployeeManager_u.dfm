@@ -12,6 +12,7 @@ object frmEmployeeManager: TfrmEmployeeManager
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  Scaled = False
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
@@ -92,12 +93,11 @@ object frmEmployeeManager: TfrmEmployeeManager
     OnClick = btnGenerateReportClick
   end
   object qryEmployees: TADOQuery
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'SELECT [ID],  [Full-Name],  [Surname] FROM Employees')
+      'SELECT ID,  FullName, Surname FROM Employees')
     Left = 720
     Top = 464
   end
@@ -107,11 +107,10 @@ object frmEmployeeManager: TfrmEmployeeManager
     Top = 456
   end
   object tblDeleteEmployee: TADOTable
-    Active = True
     Connection = DataModule1.conMain
     CursorType = ctStatic
     TableName = 'Employees'
-    Left = 792
+    Left = 800
     Top = 464
   end
 end

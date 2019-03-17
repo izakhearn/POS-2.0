@@ -17,6 +17,7 @@ type
     qryAddCard: TADOQuery;
     tblAddCard: TADOTable;
     procedure btnCreateCardClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -59,6 +60,12 @@ if (lbledtCardNumber.Text = '') or (lbledtOwnerName.Text = '') or
   end;
   ShowMessage('Card successfully created.');
   Hide;
+end;
+
+procedure TfrmAddCard.FormShow(Sender: TObject);
+begin
+ qryAddCard.Active:= True;
+ tblAddCard.Active:= True;
 end;
 
 end.

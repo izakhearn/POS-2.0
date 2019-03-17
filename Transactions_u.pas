@@ -69,7 +69,7 @@ begin
   with qryTransactions do
   begin
     SQL.Text :=
-      'SELECT * FROM Transactions WHERE [Date-When] BETWEEN :DateStart AND :DateEnd';
+      'SELECT * FROM Transactions WHERE [DateWhen] BETWEEN :DateStart AND :DateEnd';
     Parameters.ParamByName('DateStart').Value := sDateStart;
     Parameters.ParamByName('DateEnd').Value := sDateEnd;
     ExecSQL;
@@ -121,7 +121,7 @@ begin
     Parameters.ParamByName('id').Value := iID;
     ExecSQL;
     Open;
-    sTemp := FieldByName('Full-Name').AsString + ' ' +
+    sTemp := FieldByName('FullName').AsString + ' ' +
       FieldByName('Surname').AsString;
   end;
 
@@ -167,6 +167,8 @@ begin
   qryTransactions.Active := True;
   dsTransactions.Enabled := False;
   dsTransactions.Enabled := True;
+  qryEmployeeInfo.Active:= True;
+  tblTransactionDetails.Active:=True;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
 end;
 

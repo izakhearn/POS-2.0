@@ -53,6 +53,8 @@ end;
 
 procedure TfrmEditCard.FormShow(Sender: TObject);
 begin
+  qryEditCard.Active:= True;
+  tblEditCard.Active:= True;
   with qryEditCard do
   begin
     SQL.Text := ' select * from GiftCard where GiftCardNum=:CardNum ';
