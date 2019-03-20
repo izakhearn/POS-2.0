@@ -153,13 +153,11 @@ begin
   with qrySales do
   begin
     SQL.Text :=
-      'INSERT INTO Transactions (EmployeeID,TotalCost,AmountPaid,AmountItems,DateWhen,GiftCardNum) VALUES (:EmployeeID,:AmountCost,:AmountPaid,:AmountItems,:DateWhen,:CardNum)';
+      'INSERT INTO Transactions (EmployeeID,TotalCost,AmountPaid,AmountItems,DateWhen,GiftCardNum) VALUES (:EmployeeID,:AmountCost,:AmountPaid,:AmountItems,NOW(),:CardNum)';
     Parameters.ParamByName('EmployeeID').Value := ObjEmployeeInfo.GetID;
     Parameters.ParamByName('AmountPaid').Value := rAmountPaid;
     Parameters.ParamByName('AmountItems').Value := iAmountItems;
     Parameters.ParamByName('AmountCost').Value := rTotal;
-    Parameters.ParamByName('DateWhen').Value := DateToStr(Date) + ' ' +
-      TimeToStr(Time);
     Parameters.ParamByName('CardNum').Value := sCardNumber;
     ExecSQL;
     SQL.Text := 'Select * FROM Transactions ORDER BY ID DESC ';

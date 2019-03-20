@@ -196,7 +196,7 @@ object frmTransactions: TfrmTransactions
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'Select * from employees')
+      'Select * from Employees')
     Left = 816
     Top = 544
   end

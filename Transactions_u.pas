@@ -64,12 +64,14 @@ procedure TfrmTransactions.btnFilterClick(Sender: TObject);
 var
   sDateStart, sDateEnd: string;
 begin
-  sDateStart := DateToStr(dtpStart.DateTime);
-  sDateEnd := DateToStr(dtpEnd.DateTime);
+  FormatSettings.DateSeparator:= '-' ;
+  sDateStart := FormatDateTime('yyy/mm/dd',dtpStart.DateTime)+' 00:00:00';
+  sDateEnd := FormatDateTime('yyyy/mm/dd',dtpEnd.DateTime)+ ' 00:00:00';
+
   with qryTransactions do
   begin
     SQL.Text :=
-      'SELECT * FROM Transactions WHERE [DateWhen] BETWEEN :DateStart AND :DateEnd';
+      'SELECT * FROM Transactions WHERE DateWhen BETWEEN :DateStart AND :DateEnd';
     Parameters.ParamByName('DateStart').Value := sDateStart;
     Parameters.ParamByName('DateEnd').Value := sDateEnd;
     ExecSQL;
@@ -172,6 +174,8 @@ begin
   tblTransactionDetails.Active:=False;
   tblTransactionDetails.Active:=True;
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
+  dtpStart.Date:= Now;
+  dtpEnd.Date:= Now ;
 end;
 
 end.

@@ -2,7 +2,7 @@ object frmSales: TfrmSales
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Sales'
-  ClientHeight = 608
+  ClientHeight = 617
   ClientWidth = 1121
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
