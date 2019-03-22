@@ -99,6 +99,7 @@ begin
   Writeln(HTMLFile,
     '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1">'
     + '<meta charset="utf-8">' +
+    ' <title>POS 2.0 HTML REPORTS</title>'+
     ' <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>' +
     '<link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">'
     + ' <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">'
