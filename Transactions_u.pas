@@ -28,6 +28,7 @@ type
     tblTransactionDetails: TADOTable;
     btnExportTransactions: TBitBtn;
     btnGenerateReport: TBitBtn;
+    btnFilterByCard: TBitBtn;
     procedure btnLookupEmployeeClick(Sender: TObject);
     procedure btnViewTransactionDetailsClick(Sender: TObject);
     procedure btnFilterClick(Sender: TObject);
@@ -36,6 +37,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExportTransactionsClick(Sender: TObject);
     procedure btnGenerateReportClick(Sender: TObject);
+    procedure btnFilterByCardClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -58,6 +60,20 @@ begin
   objExport := TExport.Create(dbgrdTransactions, 'Transactions');
   objExport.ExportToCSV;
   objExport.Free;
+end;
+
+procedure TfrmTransactions.btnFilterByCardClick(Sender: TObject);
+begin
+     with qryTransactions do
+  begin
+    SQL.Text :=
+      'SELECT * FROM Transactions WHERE GiftCardNum=:CardNum';
+    Parameters.ParamByName('CardNum').Value := InputBox('Please Scan Card','Please Scan Card Barcode Now','');
+    ExecSQL;
+    Open;
+  end;
+  dsTransactions.Enabled := False;
+  dsTransactions.Enabled := True;
 end;
 
 procedure TfrmTransactions.btnFilterClick(Sender: TObject);

@@ -134,7 +134,7 @@ object frmTransactions: TfrmTransactions
   end
   object btnResetFilter: TBitBtn
     Left = 769
-    Top = 415
+    Top = 463
     Width = 312
     Height = 41
     Caption = 'Reset Filter'
@@ -149,7 +149,7 @@ object frmTransactions: TfrmTransactions
   end
   object btnExportTransactions: TBitBtn
     Left = 769
-    Top = 462
+    Top = 510
     Width = 312
     Height = 41
     Caption = 'Export'
@@ -164,7 +164,7 @@ object frmTransactions: TfrmTransactions
   end
   object btnGenerateReport: TBitBtn
     Left = 769
-    Top = 509
+    Top = 557
     Width = 312
     Height = 41
     Caption = 'Generate Report'
@@ -177,6 +177,21 @@ object frmTransactions: TfrmTransactions
     TabOrder = 8
     OnClick = btnGenerateReportClick
   end
+  object btnFilterByCard: TBitBtn
+    Left = 769
+    Top = 416
+    Width = 312
+    Height = 41
+    Caption = 'Filter By Card Number'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = 30
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 9
+    OnClick = btnFilterByCardClick
+  end
   object qryTransactions: TADOQuery
     Connection = DataModule1.conMain
     CursorType = ctStatic
@@ -184,12 +199,12 @@ object frmTransactions: TfrmTransactions
     SQL.Strings = (
       'SELECT *  FROM Transactions ORDER BY ID DESC ')
     Left = 912
-    Top = 544
+    Top = 592
   end
   object dsTransactions: TDataSource
     DataSet = qryTransactions
     Left = 1008
-    Top = 544
+    Top = 592
   end
   object qryEmployeeInfo: TADOQuery
     Connection = DataModule1.conMain

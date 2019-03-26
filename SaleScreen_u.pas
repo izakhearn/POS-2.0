@@ -149,6 +149,10 @@ begin
   end;
   end;
   rAmountPaid := StrToFloat(sTemp);
+  if iCardPayment = mrYes then
+  Begin
+  ShowMessage('Your remaining balance on your card is : '+FloatToStrF(objGiftCard.GetCurrBal-rTotal,ffCurrency,10,2));
+  End;
   ShowMessage('Change ' + FloatToStrF(rAmountPaid - rTotal, ffCurrency, 10, 2));
   with qrySales do
   begin
@@ -214,6 +218,7 @@ begin
   lblTotal.Caption := 'Total' + #13 + '';
   lblSubTotal.Caption := 'Sub Total' + #13 + '';
   objStock.Free;
+  objGiftCard.Free;
 end;
 
 procedure TfrmSales.edtBarcodeKeyPress(Sender: TObject; var Key: Char);

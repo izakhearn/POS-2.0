@@ -152,7 +152,7 @@ var
 begin
 
   qryLogin.Active := True;
-  try
+ { try
     if FileExists(GetEnvironmentVariable('appdata') +
       '/POS 2.0/QbsLFY6T2XRtMuA6i5jU') = True then
     begin
@@ -313,7 +313,7 @@ begin
       ('License Activation Failed. Please Check your internet connection.',
       mtError, [mbOK], 0);
     Application.Terminate;
-  end;
+  end; }
 end;
 
 procedure TfrmLogin.TerminateApplication;

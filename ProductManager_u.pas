@@ -80,6 +80,7 @@ procedure TfrmProductManager.btnEditProductClick(Sender: TObject);
 begin
   frmEditProduct.sBarcode := InputBox('Barcode',
     'Please scan product barcode', '');
+    frmEditProduct.tblEditProduct.Active:= True;
   if frmEditProduct.tblEditProduct.Locate('Barcode', frmEditProduct.sBarcode, []
     ) = False then
   begin

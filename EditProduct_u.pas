@@ -49,18 +49,25 @@ begin
   begin
     MessageDlg('Please fill in all fields', mtWarning, [mbOK], 0);
   end;
-  with qryEditProduct do
+  with {qryEditProduct} tblEditProduct do
   begin
-    SQL.Text :=
-      'UPDATE ProductName,ProductSellPrice,ProductCost VALUES (:PrdouctName,:ProductSellPrice,:ProductCost) FROM Stock WHERE Barcode=:barcode';
-    Parameters.ParamByName('barcode').Value := sBarcode;
-    Parameters.ParamByName('ProductName').Value := lbledtProductName.Text;
-    Parameters.ParamByName('ProductCost').Value :=
-      StrToFloat(lbledtProductCost.Text);
-    Parameters.ParamByName('ProductSellPrice').Value :=
-      StrToFloat(lbledtProductSell.Text);
-    ExecSQL;
-    Open;
+    Locate('Barcode',sBarcode,[]) ;
+    Edit;
+    FieldByName('Barcode').AsString:= lbledtBarcode.Text;
+    FieldByName('ProductName').AsString:= lbledtProductName.Text;
+    FieldByName('ProductCost').AsFloat:= StrToFloat(lbledtProductCost.Text);
+    FieldByName('ProductSellPrice').AsFloat:= StrToFloat(lbledtProductSell.Text);
+    Post;
+    Refresh;
+       //SQL.Text :=
+      //'UPDATE Stock SET ProductName='+#39+lbledtProductName.Text+#39+', ProductCost='+#39+lbledtProductCost.Text+#39+' ,ProductSellPrice='+#39+lbledtProductSell.Text+#39+' WHERE Barcode='+#39+lbledtBarcode.Text+#39;
+    //Parameters.ParamByName('barcode').Value := sBarcode;
+    //Parameters.ParamByName('ProductName').Value := lbledtProductName.Text;
+    //Parameters.ParamByName('ProductCost').Value :=
+    //  StrToFloat(lbledtProductCost.Text);
+    //Parameters.ParamByName('ProductSellPrice').Value :=
+     // StrToFloat(lbledtProductSell.Text);
+    //ExecSQL;
     with frmProductManager do
    begin
     qryProducts.Active := False;
@@ -71,6 +78,8 @@ begin
     dbgrdProductView.Columns[3].Width := 103;
    end;
   end;
+  ShowMessage('Product Updated Successfully');
+  Hide;
 
 end;
 
@@ -79,15 +88,12 @@ begin
   qryEditProduct.Active:= True;
   tblEditProduct.Active:= True;
   lbledtBarcode.Text := sBarcode;
-  with qryEditProduct do
+  with tblEditProduct do
   begin
-    SQL.Text := 'SELECT * FROM Stock WHERE Barcode=:barcode';
-    Parameters.ParamByName('barcode').Value := sBarcode;
-    ExecSQL;
-    Open;
-    lbledtProductSell.Text := FieldByName('ProductSellPrice').AsString;
-    lbledtProductCost.Text := FieldByName('ProductCost').AsString;
-    lbledtProductName.Text := FieldByName('ProductName').AsString;
+    Locate('Barcode',sBarcode,[]);
+    lbledtProductSell.Text:= FieldByName('ProductSellPrice').AsString;
+    lbledtProductCost.Text:= FieldByName('ProductCost').AsString;
+    lbledtProductName.Text:= FieldByName('ProductName').AsString;
   end;
 end;
 

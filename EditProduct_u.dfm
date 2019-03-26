@@ -2,7 +2,7 @@ object frmEditProduct: TfrmEditProduct
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Edit Product'
-  ClientHeight = 257
+  ClientHeight = 281
   ClientWidth = 524
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

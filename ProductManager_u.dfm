@@ -2,7 +2,7 @@ object frmProductManager: TfrmProductManager
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Product Manager'
-  ClientHeight = 536
+  ClientHeight = 537
   ClientWidth = 1125
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

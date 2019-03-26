@@ -191,6 +191,21 @@ begin
     Writeln(HTMLFile, '</tr>');
 
   end;
+  if sFrom = 'GiftCard' then
+  begin
+    rSum := 0;
+    Writeln(HTMLFile, '<tr>');
+    Writeln(HTMLFile, '<th>Total :</th>');
+    Writeln(HTMLFile, '<th> </th>');
+    Writeln(HTMLFile, '<th> </th>');
+    for I := 1 to fStringGrid.RowCount - 1 do
+    begin
+      rSum := StrToFloat(fStringGrid.Cells[3, I]) + rSum;
+    end;
+    Writeln(HTMLFile, '<th>' + floattostrf(rSum, ffFixed, 100, 0) + '</th>');
+    Writeln(HTMLFile, '</tr>');
+
+  end;
 
   Writeln(HTMLFile, '</tbody>');
   Writeln(HTMLFile, '</table>');
