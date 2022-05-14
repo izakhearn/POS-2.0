@@ -12,7 +12,7 @@ uses
 
   REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, IdGlobal,
-  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus;
+  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types;
 
 type
   TfrmLogin = class(TForm)

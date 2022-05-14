@@ -46,16 +46,28 @@ begin
     Locate('ID', frmEmployeeManager.iID, []);
     Edit;
     FieldByName('Username').AsString := lbledtUsername.Text;
+    if FieldByName('Password').AsString <> lbledtPassword.Text then
+    begin
     FieldByName('Password').AsString :=
-      TBCrypt.HashPassword(lbledtPassword.Text);
-    FieldByName('Full-Name').AsString := lbledtName.Text;
+    TBCrypt.HashPassword(lbledtPassword.Text);
+    end;
+    FieldByName('FullName').AsString := lbledtName.Text;
     FieldByName('Surname').AsString := lbledtSurname.Text;
     FieldByName('CellPhone').AsString := lbledtPhone.Text;
     FieldByName('Email').AsString := lbledtEmail.Text;
-    FieldByName('Admin').AsBoolean := chkAdmin.Checked;
+    if chkAdmin.Checked then
+    begin
+         FieldByName('Admin').AsInteger := 1;
+    end
+    else
+    begin
+        FieldByName('Admin').AsInteger := 0;
+    end;
+
     Post;
     ShowMessage('Updating Done');
     Hide;
+    EmployeeManager_u.frmEmployeeManager.Show;
   end;
 end;
 
@@ -75,7 +87,15 @@ begin
     lbledtSurname.Text := FieldByName('Surname').AsString;
     lbledtPhone.Text := FieldByName('CellPhone').AsString;
     lbledtEmail.Text := FieldByName('Email').AsString;
-    chkAdmin.Checked := FieldByName('Admin').AsBoolean;
+    if FieldByName('Admin').AsInteger = 1 then
+    begin
+      chkAdmin.Checked := true;
+    end
+    else
+    begin
+          chkAdmin.Checked := false;
+    end;
+
   end;
 
 end;

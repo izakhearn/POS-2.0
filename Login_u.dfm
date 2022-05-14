@@ -75,29 +75,29 @@ object frmLogin: TfrmLogin
   object RESTClientLicenseCheck: TRESTClient
     BaseURL = 'http://izakwebdesigns.co.za/wp-json'
     Params = <>
-    HandleRedirects = True
     Left = 456
     Top = 48
   end
   object RESTRequestLicenseCheck: TRESTRequest
+    AssignedValues = [rvAccept, rvAcceptCharset]
     Accept = 'application/json'
     AcceptCharset = 'UTF-8'
     Client = RESTClientLicenseCheck
     Params = <
       item
-        name = 'secret_key'
+        Name = 'secret_key'
         Value = '5afdbc47037ee9.17105930'
       end
       item
-        name = 'slm_action'
+        Name = 'slm_action'
         Value = 'slm_activate'
       end
       item
-        name = 'license_key'
+        Name = 'license_key'
         Value = '0'
       end
       item
-        name = 'registered_domain'
+        Name = 'registered_domain'
         Value = ' '
       end>
     Response = RESTResponseLicenseCheck

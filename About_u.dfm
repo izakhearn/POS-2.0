@@ -576,9 +576,9 @@ object AboutBox: TAboutBox
     object Copyright: TLabel
       Left = 8
       Top = 85
-      Width = 156
+      Width = 149
       Height = 13
-      Caption = 'Copyright 2018 Izak Web Design'
+      Caption = 'Free Open Souce MYSQL POS'
       IsControl = True
     end
     object Comments: TLabel

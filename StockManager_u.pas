@@ -24,6 +24,7 @@ type
     btnFilter: TBitBtn;
     btnExportStock: TBitBtn;
     btnGenerateReport: TBitBtn;
+    lblFilterActive: TLabel;
     procedure btnViewAvailableStockClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -123,6 +124,7 @@ procedure TfrmStockManager.btnFilterClick(Sender: TObject);
 var
   iUnder: Integer;
 begin
+  lblFilterActive.Caption := 'Filter Currently Active';
   iUnder := StrToInt(seFilterByAmount.Text);
   with qryStockFilter do
   begin
@@ -154,6 +156,7 @@ end;
 
 procedure TfrmStockManager.btnResetFilterClick(Sender: TObject);
 begin
+  lblFilterActive.Caption := 'No Filter Active';
   with qryStockFilter do
   begin
     SQL.Text :=
@@ -196,5 +199,7 @@ procedure TfrmStockManager.FormShow(Sender: TObject);
 begin
  qryStockFilter.Active:= True;
 end;
+
+
 
 end.

@@ -44,8 +44,15 @@ object frmStockManager: TfrmStockManager
     Font.Style = []
     ParentFont = False
   end
+  object lblFilterActive: TLabel
+    Left = 1040
+    Top = 566
+    Width = 169
+    Height = 11
+    Caption = 'No Filter Active'
+  end
   object dbgrdStockView: TDBGrid
-    Left = 8
+    Left = 32
     Top = 40
     Width = 841
     Height = 551
