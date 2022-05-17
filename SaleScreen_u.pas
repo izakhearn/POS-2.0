@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, DM_u,
   Data.DB, Data.Win.ADODB, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, clsEmployeeInfo,
-  clsStockManagement_u, clsPrintSlip, Vcl.Menus,clsGiftCard;
+  clsStockManagement_u, clsPrintSlip, Vcl.Menus,clsGiftCard,clsLogging;
 
 type
   TfrmSales = class(TForm)
@@ -54,6 +54,7 @@ type
 
 var
   frmSales: TfrmSales;
+  objLog : TLog;
 
 implementation
 
@@ -93,6 +94,10 @@ begin
   sgdSales.Cells[2, 0] := 'Quantity';
   edtBarcode.Text := '';
   edtBarcode.SetFocus;
+
+  objLog:= TLog.Create;
+  objLog.WriteLog('INFO','Tranasction Event : Sale Cancelled');
+  objLog.Free;
 end;
 
 procedure TfrmSales.btnCheckCardBalClick(Sender: TObject);
@@ -219,6 +224,11 @@ begin
   lblSubTotal.Caption := 'Sub Total' + #13 + '';
   objStock.Free;
   objGiftCard.Free;
+
+  objLog:= TLog.Create;
+  objLog.WriteLog('INFO','Tansaction Event : Tranasction '
+  +IntToStr(iTransactionID)+'Completed');
+  objLog.Free;
 end;
 
 procedure TfrmSales.edtBarcodeKeyPress(Sender: TObject; var Key: Char);

@@ -4,7 +4,7 @@ interface
 
 uses
   Vcl.DBGrids, Vcl.Forms, Vcl.Grids, System.SysUtils, Vcl.Dialogs,
-  System.Classes;
+  System.Classes,clsLogging;
 
 type
   TExport = class(TObject)
@@ -60,6 +60,7 @@ end;
 procedure TExport.ExportToCSV;
 var
   I: Integer;
+  objLog: TLog;
 begin
   fSave := TSaveDialog.Create(Self2);
   fSave.Title := 'Choose where to save exported file';
@@ -84,6 +85,9 @@ begin
   end;
   fSave.Free;
   fStringGrid.Free;
+  objLog:= TLog.Create;
+  objLog.WriteLog('INFO','Exporting CSV File : Successful');
+  objLog.Free;
 end;
 
 procedure TExport.ExportToHTML(sFrom: string);
@@ -92,6 +96,7 @@ var
   I, iTemp: Integer;
   rSum: Real;
   K: Integer;
+  objLog : TLog;
 begin
   AssignFile(HTMLFile, GetEnvironmentVariable('appdata') + '/POS 2.0/HTML/' +
     sFrom + '.html');
@@ -214,7 +219,9 @@ begin
     ')" class="button is-primary is-large is-rounded">Print Report</a>');
   Writeln(HTMLFile, '</center></div></section></body></html>');
   CloseFile(HTMLFile);
-
+  objLog:= TLog.Create;
+  objLog.WriteLog('INFO','Exporting HTML Report : Success');
+  objLog.Free;
 end;
 
 end.
