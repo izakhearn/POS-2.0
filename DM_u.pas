@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.Win.ADODB, Data.DB, Winapi.Windows,
-  About_u, Data.DBXMySQL, Data.SqlExpr, Vcl.Dialogs, Vcl.ExtCtrls;
+  About_u, Data.DBXMySQL, Data.SqlExpr, Vcl.Dialogs, Vcl.ExtCtrls,clsLogging;
 
 type
   TDataModule1 = class(TDataModule)
@@ -20,11 +20,13 @@ type
     sWorkingDataDir, sDataBase, sUser, sPassword, sServerAddress: string;
   public
     { Public declarations }
+    procedure ReconncectDB;
   end;
 
 var
   DataModule1: TDataModule1;
   bFistConnect: Boolean;
+  objLog : TLog;
 
 implementation
 
@@ -95,18 +97,26 @@ begin
         '; Password=' + sPassword + ';Option=3;';
 
       conMain.Connected := True; // open the connection
-      conMain.KeepConnection := True;
-      bFistConnect := True;
       //MessageDlg('Connected to databse "' + sDataBase + '".', mtInformation,
         //[mbOK], 0);
+
+    objLog:= TLog.Create;
+    objLog.WriteLog('INFO','Application Starting..');
+    objLog.WriteLog('INFO','Connecting to Database at Address '+ sServerAddress + ' : Successfull');
+    objLog.Free;
     end;
 
   Except
     On E: Exception do
     begin
       // Erase(tDBConnectInfo);
+    objLog:= TLog.Create;
+    objLog.WriteLog('INFO','Application Starting..');
+    objLog.WriteLog('INFO','Connecting to Database at Address '+ sServerAddress + ' : Failed');
+    objLog.WriteLog('ERROR',E.ClassName+' : '+E.Message);
+    objLog.Free;
       MessageDlg('Cannot connect to databse "' + sDataBase + '"!.' + #13 + #10 +
-        'Please report this problem (is MySql running?)', mtError, [mbOK], 0);
+        'Please report this problem (is MySql running? HELLO)', mtError, [mbOK], 0);
       CloseApplication;
     end;
   end;
@@ -117,6 +127,44 @@ begin
   Login_u.frmLogin.Show;
 end;
 
+procedure TDataModule1.ReconncectDB;
+begin
+  Try
+    conMain.Connected := False;
+    if conMain.Connected then // already connected?
+    begin
+      MessageDlg('Already connected', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+
+    begin
+
+      conMain.LoginPrompt := False; // dont ask for the login parameters
+      conMain.ConnectionString := 'Driver={MySQL ODBC 5.1 Driver};Server=' +
+        sServerAddress + ';Database=' + sDataBase + ';User=' + sUser +
+        '; Password=' + sPassword + ';Option=3;';
+
+      conMain.Connected := True; // open the connection
+      conMain.KeepConnection := True;
+      //MessageDlg('Connected to databse "' + sDataBase + '".', mtInformation,
+      //  [mbOK], 0);
+    end;
+    objLog := Tlog.Create;
+    objLog.WriteLog('INFO','Reconnecting to Database at Address '+ sServerAddress +
+    ' : Successfull');
+    objLog.Free;
+  Except
+    On E: Exception do
+    begin
+      // Erase(tDBConnectInfo);
+    objLog:= TLog.Create;
+    objLog.WriteLog('INFO','Reconnecting to Database at Address '+ sServerAddress + ' : Failed');
+    objLog.WriteLog('ERROR',E.ClassName+' : '+E.Message);
+    objLog.Free;
+    end;
+  end;
+end;
+
 procedure TDataModule1.ShowAbout;
 begin
   AboutBox.Show;
@@ -124,33 +172,7 @@ end;
 
 procedure TDataModule1.Timer1Timer(Sender: TObject);
 begin
-
-  if bFistConnect = True then
-  begin
-    Try
-
-      begin
-        conMain.LoginPrompt := False; // dont ask for the login parameters
-        conMain.ConnectionString := 'Driver={MySQL ODBC 5.1 Driver};Server=' +
-          sServerAddress + ';Database=' + sDataBase + ';User=' + sUser +
-          '; Password=' + sPassword + ';Option=3;';
-
-        conMain.Connected := True;
-        // open the connection   //Note You might want to disable the warning when debugging.
-        conMain.KeepConnection := True;
-        bFistConnect := True;
-      end;
-
-    Except
-      On E: Exception do
-      begin
-        // Erase(tDBConnectInfo);
-        // MessageDlg('Cannot connect to databse "' + sDataBase + '"!.' + #13 + #10 + 'Please report this problem (is MySql running?)', mtError, [mbOK], 0);
-        // CloseApplication;
-      end;
-    end;
-  end;
-
+ ReconncectDB;
 end;
 
 end.

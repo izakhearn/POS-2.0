@@ -12,7 +12,7 @@ uses
 
   REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, IdGlobal,
-  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types;
+  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types,clsLogging;
 
 type
   TfrmLogin = class(TForm)
@@ -63,12 +63,15 @@ var
   sUsername: string;
   sPassword: UnicodeString;
   bVerify: Boolean;
+  MyClass: TComponent;
+  objLog : TLog;
 begin
   sPassword := '';
   sUsername := '';
   with qryLogin do
   begin
-    SQL.Text := 'SELECT * FROM Employees WHERE Username=:username';
+  try
+          SQL.Text := 'SELECT * FROM Employees WHERE Username=:username';
     Parameters.ParamByName('username').Value := edtUsername.Text;
     ExecSQL;
     Open;
@@ -78,6 +81,9 @@ begin
     ObjEmployeeInfo := TEmployeeInfo.Create(FieldByName('FullName').AsString,
       FieldByName('Surname').AsString, FieldByName('CellPhone').AsString,
       FieldByName('Email').AsString, FieldByName('ID').AsInteger);
+  except
+    DM_u.DataModule1.ReconncectDB;
+  end;
   end;
   if (edtPassword.Text = '') or (edtUsername.Text = '') then
   begin
@@ -93,7 +99,10 @@ begin
       ('Please change the default Username and Password to get rid of this message',
       mtWarning, [mbOK], 0);
   end;
-  if (TBCrypt.CheckPassword(edtPassword.Text, sPassword, bVerify) = True) and
+
+  MyClass := TComponent.Create(Self);
+  try
+       if (TBCrypt.CheckPassword(edtPassword.Text, sPassword, bVerify) = True) and
     (edtUsername.Text = sUsername) then
   begin
     edtUsername.Clear;
@@ -101,23 +110,44 @@ begin
     edtUsername.SetFocus;
     Hide;
     MessageDlg('Log In Successful', mtInformation, [mbOK], 0);
+    objLog:= TLog.Create;
+    objLog.WriteLog('INFO','Login Attempt : Success');
+    objLog.WriteLog('INFO','User Logged In : '+sUsername);
     if iAdmin = 1 then
     begin
       frmAdmin.Show;
+      objLog.WriteLog('INFO','User Is An Administator : True');
     end
     else
     begin
+      objLog.WriteLog('INFO','User Is An Administrator :False');
       frmSales.ObjEmployeeInfo := ObjEmployeeInfo;
       frmSales.Show;
     end;
-
+    objLog.Free;
   end
   else
   begin
+  objLog:= TLog.Create;
+    objLog.WriteLog('WARN','Login Attempt : Failed');
+    objLog.WriteLog('WARN','Reason For Failure : Bad Username or Password');
+    objLog.Free;
     MessageDlg('Username or Password Incorrect', mtError, [mbOK], 0);
     edtPassword.Clear;
     edtPassword.SetFocus;
+
   end;
+  except
+    on E: Exception do
+    begin
+    objLog:= TLog.Create;
+    objLog.WriteLog('ERROR','Login Attempt : Failed');
+    objLog.WriteLog('ERROR','Reason For Failure : See Message Below');
+    objLog.WriteLog('ERROR',E.ClassName+' : '+E.Message);
+    objLog.Free;
+    end;
+  end;
+
 
 end;
 
@@ -148,9 +178,9 @@ var
   I, iErrorCode, iPos, iDays: Integer;
   fLicenseFile: TextFile;
   rValidFor: tRegistry;
+  objLog : TLog;
 
 begin
-
   qryLogin.Active := True;
  { try
     if FileExists(GetEnvironmentVariable('appdata') +
@@ -317,6 +347,8 @@ begin
 end;
 
 procedure TfrmLogin.TerminateApplication;
+var
+objLog: TLog;
 begin
   Application.Terminate;
 end;

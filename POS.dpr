@@ -26,7 +26,8 @@ uses
   GiftCard_u in 'GiftCard_u.pas' {frmGiftCards},
   AddCard_u in 'AddCard_u.pas' {frmAddCard},
   EditCard_u in 'EditCard_u.pas' {frmEditCard},
-  clsGiftCard in 'clsGiftCard.pas';
+  clsGiftCard in 'clsGiftCard.pas',
+  clsLogging in 'clsLogging.pas';
 
 {$R *.res}
 

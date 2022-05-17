@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DM_u, Data.DB, Data.Win.ADODB,
   Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, clsExport;
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, clsExport, clsLogging;
 
 type
   TfrmEmployeeManager = class(TForm)
@@ -35,6 +35,7 @@ type
 
 var
   frmEmployeeManager: TfrmEmployeeManager;
+  objLog : TLog;
 
 implementation
 
@@ -87,6 +88,9 @@ begin
       Delete;
     end;
     ShowMessage('Employee Succesfully Deleted.');
+    objLog:= TLog.Create;
+    objLog.WriteLog('INFO','Deleting Employee with ID '+IntToStr(iDeleteID)+': Successful');
+    objLog.Free;
     qryEmployees.Active := False;
     qryEmployees.Active := True;
     dbgrdEmployees.Columns[0].Width := 50;
@@ -132,6 +136,9 @@ begin
   objExport.ExportToHTML('Employee');
   objExport.Free;
   MessageDlg('Report Generated', mtInformation, [mbOK], 0);
+  objLog:= TLog.Create;
+  objLog.WriteLog('INFO','Exporting Employee Table to HTML : Successful');
+  objLog.Free;
 end;
 
 procedure TfrmEmployeeManager.FormClose(Sender: TObject;

@@ -9,13 +9,14 @@ object DataModule1: TDataModule1
       #39'Driver={MySQL ODBC 5.2 Driver};Server=localhost;Database=posl;U' +
       'ser=root;'
     ConnectionTimeout = 60
+    ConnectOptions = coAsyncConnect
     LoginPrompt = False
     Mode = cmReadWrite
     Left = 16
     Top = 24
   end
   object Timer1: TTimer
-    Interval = 20
+    Interval = 30000
     OnTimer = Timer1Timer
     Left = 88
     Top = 88
