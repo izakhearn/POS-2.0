@@ -2,8 +2,8 @@ object frmLogin: TfrmLogin
   Left = 0
   Top = 0
   Caption = 'POS 2.0 Login'
-  ClientHeight = 135
-  ClientWidth = 263
+  ClientHeight = 132
+  ClientWidth = 260
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -117,6 +117,10 @@ object frmLogin: TfrmLogin
       object About1: TMenuItem
         Caption = 'About'
         OnClick = About1Click
+      end
+      object Log1: TMenuItem
+        Caption = 'Log'
+        OnClick = Log1Click
       end
       object Exit1: TMenuItem
         Caption = 'Exit'

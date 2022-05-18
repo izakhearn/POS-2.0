@@ -12,7 +12,7 @@ uses
 
   REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, IdGlobal,
-  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types,clsLogging;
+  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types,clsLogging,LogView_u;
 
 type
   TfrmLogin = class(TForm)
@@ -27,6 +27,7 @@ type
     File1: TMenuItem;
     About1: TMenuItem;
     Exit1: TMenuItem;
+    Log1: TMenuItem;
     procedure btnLoginClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -34,6 +35,7 @@ type
     procedure TerminateApplication;
     procedure About1Click(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
+    procedure Log1Click(Sender: TObject);
   private
     { Private declarations }
     ObjEmployeeInfo: TEmployeeInfo;
@@ -344,6 +346,11 @@ begin
       mtError, [mbOK], 0);
     Application.Terminate;
   end; }
+end;
+
+procedure TfrmLogin.Log1Click(Sender: TObject);
+begin
+   LogView_u.frmLog.Show;
 end;
 
 procedure TfrmLogin.TerminateApplication;

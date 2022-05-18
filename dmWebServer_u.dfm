@@ -1,5 +1,6 @@
 object dmHttpServer: TdmHttpServer
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 157
   Width = 187
   object httpserverMain: TIdHTTPServer
