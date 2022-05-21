@@ -53,6 +53,10 @@ begin
   end;
   AssignFile(tDBConnectInfo, GetEnvironmentVariable('APPDATA') +
     '\POS 2.0\DBInfo');
+
+  // Check if the DBInfo file exists. This file is used to pull your database connection
+  // info from. If the file does not exist we show a series of popup boxes that will ask
+  // you for the infomation for the application to connect to the database
   if FileExists(GetEnvironmentVariable('APPDATA') + '\POS 2.0\DBInfo') = False
   then
   begin
@@ -82,39 +86,34 @@ begin
   end;
 
   Try
-
+    // Check if the database is already connect
+    // We use this check as a sanity check just in case it should always return
+    // false when the application starts
     if conMain.Connected then // already connected?
     begin
       MessageDlg('Already connected', mtInformation, [mbOK], 0);
       Exit;
     end;
-
-    begin
-
       conMain.LoginPrompt := False; // dont ask for the login parameters
       conMain.ConnectionString := 'Driver={MySQL ODBC 5.1 Driver};Server=' +
         sServerAddress + ';Database=' + sDataBase + ';User=' + sUser +
         '; Password=' + sPassword + ';Option=3;';
-
       conMain.Connected := True; // open the connection
-      //MessageDlg('Connected to databse "' + sDataBase + '".', mtInformation,
-        //[mbOK], 0);
 
-    objLog:= TLog.Create;
-    objLog.WriteLog('INFO','Application Starting..');
-    objLog.WriteLog('INFO','Connecting to Database at Address '+ sServerAddress + ' : Successfull');
-    objLog.Free;
-    end;
-
+      //Log the Application starting and connecting to database action
+      objLog:= TLog.Create;
+      objLog.WriteLog('INFO','Application Starting..');
+      objLog.WriteLog('INFO','Connecting to Database at Address '+ sServerAddress + ' : Successfull');
+      objLog.Free;
   Except
     On E: Exception do
     begin
-      // Erase(tDBConnectInfo);
-    objLog:= TLog.Create;
-    objLog.WriteLog('INFO','Application Starting..');
-    objLog.WriteLog('INFO','Connecting to Database at Address '+ sServerAddress + ' : Failed');
-    objLog.WriteLog('ERROR',E.ClassName+' : '+E.Message);
-    objLog.Free;
+      //Log Database connection issues on startup
+      objLog:= TLog.Create;
+      objLog.WriteLog('INFO','Application Starting..');
+      objLog.WriteLog('INFO','Connecting to Database at Address '+ sServerAddress + ' : Failed');
+      objLog.WriteLog('ERROR',E.ClassName+' : '+E.Message);
+      objLog.Free;
       MessageDlg('Cannot connect to databse "' + sDataBase + '"!.' + #13 + #10 +
         'Please report this problem (is MySql running? HELLO)', mtError, [mbOK], 0);
       CloseApplication;
@@ -127,6 +126,10 @@ begin
   Login_u.frmLogin.Show;
 end;
 
+
+//This function is used to reconnect the DB it can be called from other
+// Units if an excption with a database occurs. There is a timer in the code
+// That will also trigger this every min to ensure the database connection stays up.
 procedure TDataModule1.ReconncectDB;
 begin
   Try
@@ -136,27 +139,21 @@ begin
       MessageDlg('Already connected', mtInformation, [mbOK], 0);
       Exit;
     end;
-
-    begin
-
       conMain.LoginPrompt := False; // dont ask for the login parameters
       conMain.ConnectionString := 'Driver={MySQL ODBC 5.1 Driver};Server=' +
         sServerAddress + ';Database=' + sDataBase + ';User=' + sUser +
         '; Password=' + sPassword + ';Option=3;';
-
       conMain.Connected := True; // open the connection
       conMain.KeepConnection := True;
-      //MessageDlg('Connected to databse "' + sDataBase + '".', mtInformation,
-      //  [mbOK], 0);
-    end;
-    objLog := Tlog.Create;
-    objLog.WriteLog('INFO','Reconnecting to Database at Address '+ sServerAddress +
-    ' : Successfull');
-    objLog.Free;
+      //Log that the database reconnect was successfull
+      objLog := Tlog.Create;
+      objLog.WriteLog('INFO','Reconnecting to Database at Address '+ sServerAddress +
+      ' : Successfull');
+      objLog.Free;
   Except
     On E: Exception do
     begin
-      // Erase(tDBConnectInfo);
+    //Log that the database reconnect has failed and include the error message in the logs
     objLog:= TLog.Create;
     objLog.WriteLog('INFO','Reconnecting to Database at Address '+ sServerAddress + ' : Failed');
     objLog.WriteLog('ERROR',E.ClassName+' : '+E.Message);
@@ -170,6 +167,9 @@ begin
   AboutBox.Show;
 end;
 
+// Timer that will run the reconnect function on the database
+// This is to ensure the database connection stays up or if it is down
+// Reconnects the database to the application
 procedure TDataModule1.Timer1Timer(Sender: TObject);
 begin
  ReconncectDB;

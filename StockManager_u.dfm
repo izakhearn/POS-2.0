@@ -11,7 +11,7 @@ object frmStockManager: TfrmStockManager
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poMainFormCenter
+  Position = poDesigned
   Scaled = False
   OnClose = FormClose
   OnCreate = FormCreate
@@ -47,8 +47,8 @@ object frmStockManager: TfrmStockManager
   object lblFilterActive: TLabel
     Left = 1040
     Top = 566
-    Width = 169
-    Height = 11
+    Width = 73
+    Height = 13
     Caption = 'No Filter Active'
   end
   object dbgrdStockView: TDBGrid

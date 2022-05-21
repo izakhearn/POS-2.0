@@ -39,6 +39,9 @@ uses
 
 {$R *.dfm}
 
+// This function will update the employee that you want to update.
+// It will find mathcing records using the employee ID provided to it and update
+// Any records that the user has changed to the database.
 procedure TfrmEditEmployeeInfo.btnSubmitClick(Sender: TObject);
 begin
   with tblEmployeeInfo do
@@ -71,6 +74,8 @@ begin
   end;
 end;
 
+// When this form is first activated we pull the employee's infomation from the database using
+// The Employee ID that was passed through to us from the Unit that called it
 procedure TfrmEditEmployeeInfo.FormActivate(Sender: TObject);
 begin
   lblEditUser.Caption := 'Currently Employee with the ID of : ' +
