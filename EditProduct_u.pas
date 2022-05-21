@@ -42,6 +42,9 @@ begin
   Hide;
 end;
 
+//This function will update a product mathcing the barcode that the user has provided.
+// It will find the product using the barcode and update all information in the database
+// That the user edited.
 procedure TfrmEditProduct.btnUpdateProductClick(Sender: TObject);
 begin
   if (lbledtProductSell.Text = '') or (lbledtProductCost.Text = '') or
@@ -59,15 +62,6 @@ begin
     FieldByName('ProductSellPrice').AsFloat:= StrToFloat(lbledtProductSell.Text);
     Post;
     Refresh;
-       //SQL.Text :=
-      //'UPDATE Stock SET ProductName='+#39+lbledtProductName.Text+#39+', ProductCost='+#39+lbledtProductCost.Text+#39+' ,ProductSellPrice='+#39+lbledtProductSell.Text+#39+' WHERE Barcode='+#39+lbledtBarcode.Text+#39;
-    //Parameters.ParamByName('barcode').Value := sBarcode;
-    //Parameters.ParamByName('ProductName').Value := lbledtProductName.Text;
-    //Parameters.ParamByName('ProductCost').Value :=
-    //  StrToFloat(lbledtProductCost.Text);
-    //Parameters.ParamByName('ProductSellPrice').Value :=
-     // StrToFloat(lbledtProductSell.Text);
-    //ExecSQL;
     with frmProductManager do
    begin
     qryProducts.Active := False;
@@ -83,6 +77,8 @@ begin
 
 end;
 
+// When this form is first called it pulls up the product infomation from the
+// Database using the product barcode that was passed to from the unit that called it.
 procedure TfrmEditProduct.FormShow(Sender: TObject);
 begin
   qryEditProduct.Active:= True;

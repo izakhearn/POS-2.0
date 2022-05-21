@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, IdHTTPServer, IdContext, IdCustomHTTPServer,
-  IdBaseComponent, IdComponent, IdCustomTCPServer, System.StrUtils,
+  IdBaseComponent, IdComponent, IdCustomTCPServer, System.StrUtils,clsLogging,
   Vcl.FileCtrl;
 
 type
@@ -12,6 +12,7 @@ type
     httpserverMain: TIdHTTPServer;
     procedure httpserverMainCommandGet(AContext: TIdContext;
       ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,10 +27,20 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 {$R *.dfm}
 
+procedure TdmHttpServer.DataModuleCreate(Sender: TObject);
+var
+  objLog : TLog;
+begin
+  objLog:= TLog.Create;
+  objLog.WriteLog('INFO','Starting Web Server On Port 8080 : Successfull');
+  objLog.Free;
+end;
+
 procedure TdmHttpServer.httpserverMainCommandGet(AContext: TIdContext;
   ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
 var
   HTMLFileName, WorkingDir: string;
+  objLog : TLog;
 begin
   WorkingDir := GetEnvironmentVariable('appdata') + '/POS 2.0/HTML/';
   SetCurrentDir(WorkingDir);
@@ -63,6 +74,9 @@ begin
       (GetEnvironmentVariable('appdata') + '/POS 2.0/HTML/404.html')
   end;
 
+  objLog := TLog.Create;
+  objLog.WriteLog('INFO','Serving HTML Page : '+ HTMLFileName);
+  objLog.Free;
 end;
 
 end.

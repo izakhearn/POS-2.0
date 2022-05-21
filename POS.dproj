@@ -189,6 +189,10 @@
         </DCCReference>
         <DCCReference Include="clsGiftCard.pas"/>
         <DCCReference Include="clsLogging.pas"/>
+        <DCCReference Include="LogView_u.pas">
+            <Form>frmLog</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

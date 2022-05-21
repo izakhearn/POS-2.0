@@ -4,7 +4,7 @@ interface
 
   uses
   System.SysUtils, System.Variants, System.Classes, DM_u, Data.DB,
-  Data.Win.ADODB, Vcl.Dialogs;
+  Data.Win.ADODB, Vcl.Dialogs,clsLogging;
 
 type
 
@@ -27,6 +27,8 @@ type
       function CompletePayment(rAmountDue : Real): Boolean;
     published
       { published declarations }
+      var
+  objLog : TLog;
 end;
 
 implementation
@@ -51,6 +53,10 @@ begin
  begin
    MessageDlg('Payment Failed due to Insufficient Funds. Funds Available :'+FloatToStrF(fCurrentBal,ffCurrency,10,2),mtConfirmation,[mbOK],0);
    Result:= False;
+   objLog:= TLog.Create;
+   objLog.WriteLog('INFO','Payment Status : Failed');
+   objLog.WriteLog('INFO','Payment Failure Reason : Insufficient Funds');
+   objLog.Free;
  end;
 end;
 
@@ -70,6 +76,9 @@ begin
     ExecSQL;
     Open;
     fCurrentBal:= FieldByName('CardBalance').AsFloat;
+    objLog:= TLog.Create;
+   objLog.WriteLog('INFO','Creating New Gift Card ; Successful');
+   objLog.Free;
   end;
 end;
 

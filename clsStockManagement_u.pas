@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Variants, System.Classes, DM_u, Data.DB,
-  Data.Win.ADODB, Vcl.Dialogs;
+  Data.Win.ADODB, Vcl.Dialogs,clsLogging;
 
 type
   TStockManagment = class(TObject)
@@ -26,6 +26,8 @@ type
     procedure AddStock(sBarcode: string; iAmountAdd: Integer);
 
   end;
+  var
+  objLog : TLog;
 
 implementation
 
@@ -63,6 +65,11 @@ begin
       ShowMessage('Stock Added');
     end;
   end;
+
+   objLog:= TLog.Create;
+   objLog.WriteLog('INFO','Adding Stock : Successful');
+   objLog.WriteLog('INFO','Added '+IntToStr(iAmountAdd)+' To Product : '+fBarcode);
+   objLog.Free;
 end;
 
 function TStockManagment.GetProductInfo(sBarcode: string): string;
@@ -143,6 +150,11 @@ begin
       //ShowMessage('Stock Corrected');
     end;
   end;
+
+   objLog:= TLog.Create;
+   objLog.WriteLog('INFO','Adding Stock : Successful');
+   objLog.WriteLog('INFO','Added '+IntToStr(iAmountRemove)+' To Product : '+fBarcode);
+   objLog.Free;
 end;
 
 end.

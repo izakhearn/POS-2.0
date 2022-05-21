@@ -27,7 +27,8 @@ uses
   AddCard_u in 'AddCard_u.pas' {frmAddCard},
   EditCard_u in 'EditCard_u.pas' {frmEditCard},
   clsGiftCard in 'clsGiftCard.pas',
-  clsLogging in 'clsLogging.pas';
+  clsLogging in 'clsLogging.pas',
+  LogView_u in 'LogView_u.pas' {frmLog};
 
 {$R *.res}
 
@@ -54,6 +55,7 @@ begin
   Application.CreateForm(TfrmGiftCards, frmGiftCards);
   Application.CreateForm(TfrmAddCard, frmAddCard);
   Application.CreateForm(TfrmEditCard, frmEditCard);
+  Application.CreateForm(TfrmLog, frmLog);
   Application.Run;
 
 end.
