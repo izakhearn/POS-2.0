@@ -25,7 +25,7 @@ We are working an getting decent instructions for the installation of the softwa
 
 ---------------------------
 Basic Install Instruction. 
-- Upload the SQL File to your Mysql database so that you can have the default database tables create 
-- Download the setup file form our release section. 
-- Connect Database and Application on first run.
+- Upload the SQL File to your Mysql database so that you can have the default database tables created 
+- Download the setup file from our release section. 
+- Connect the Database and Application on first run.
 - Default username and password for Admin account is Admin (Username) and admin (Password). We highly recommend you change this after first login.
