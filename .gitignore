@@ -52,3 +52,5 @@
 __history/
 
 Setup Files/
+
+*.dcu

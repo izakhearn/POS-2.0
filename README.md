@@ -22,3 +22,10 @@ Here is a list of basic features the program has so far :
 The above list is not an all round list and some functionality might change as the software is continually developed.
 
 We are working an getting decent instructions for the installation of the software and building releases with the a setup file.
+
+---------------------------
+Basic Install Instruction. 
+- Upload the SQL File to your Mysql database so that you can have the default database tables create 
+- Download the setup file form our release section. 
+- Connect Database and Application on first run.
+- Default username and password for Admin account is Admin (Username) and admin (Password). We highly recommend you change this after first login.
