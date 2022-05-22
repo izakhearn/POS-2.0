@@ -15,6 +15,7 @@ type
     procedure ShowAbout;
     procedure Logout;
     procedure Timer1Timer(Sender: TObject);
+    procedure conMainAfterDisconnect(Sender: TObject);
   private
     { Private declarations }
     sWorkingDataDir, sDataBase, sUser, sPassword, sServerAddress: string;
@@ -38,6 +39,11 @@ uses
 procedure TDataModule1.CloseApplication;
 begin
   frmLogin.TerminateApplication;
+end;
+
+procedure TDataModule1.conMainAfterDisconnect(Sender: TObject);
+begin
+ ReconncectDB;
 end;
 
 procedure TDataModule1.DataModuleCreate(Sender: TObject);
@@ -136,7 +142,7 @@ begin
     conMain.Connected := False;
     if conMain.Connected then // already connected?
     begin
-      MessageDlg('Already connected', mtInformation, [mbOK], 0);
+      //MessageDlg('Already connected', mtInformation, [mbOK], 0);
       Exit;
     end;
       conMain.LoginPrompt := False; // dont ask for the login parameters

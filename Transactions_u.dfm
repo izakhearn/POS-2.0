@@ -104,8 +104,8 @@ object frmTransactions: TfrmTransactions
     Top = 311
     Width = 104
     Height = 30
-    Date = 43219.753119814820000000
-    Time = 43219.753119814820000000
+    Date = 43219.000000000000000000
+    Time = 0.753119814820820500
     TabOrder = 3
   end
   object dtpEnd: TDateTimePicker
@@ -113,8 +113,8 @@ object frmTransactions: TfrmTransactions
     Top = 311
     Width = 104
     Height = 30
-    Date = 43219.753119814820000000
-    Time = 43219.753119814820000000
+    Date = 43219.000000000000000000
+    Time = 0.753119814820820500
     TabOrder = 4
   end
   object btnFilter: TBitBtn
@@ -221,5 +221,10 @@ object frmTransactions: TfrmTransactions
     TableName = 'Transactions'
     Left = 816
     Top = 592
+  end
+  object tmrConnectDS: TTimer
+    OnTimer = tmrConnectDSTimer
+    Left = 784
+    Top = 160
   end
 end

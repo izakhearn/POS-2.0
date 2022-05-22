@@ -105,7 +105,7 @@ var
   sTemp : string;
   rTemp : Real;
 begin
-  sTemp := InputBox('Scan Gift Card','Please Scan Card Now.','');
+  sTemp := InputBox('Scan Gift Card','Please Scan Gift Card Now.','');
  objGiftCard:= TGiftCard.Create(sTemp);
  rTemp := objGiftCard.GetCurrBal;
   MessageDlg('The Cards current balance is :'+FloatToStrF(rTemp,ffCurrency,10,2),mtConfirmation,[mbOK],0);
@@ -131,7 +131,7 @@ begin
     sTemp:= FloatToStrF(rTotal,ffGeneral,10,2);
     if bCardSuccessfull = False then
     begin
-      MessageDlg('Transaction Voided',mtError,[mbOK],0);
+      MessageDlg('Transaction Failed',mtError,[mbOK],0);
       btnCancelSale.Click;
       Exit;
     end;
@@ -140,18 +140,29 @@ begin
    begin
    sCardNumber:= 'COD';
   sTemp := InputBox('Amount Paid', 'Enter Amount Paid', '');
-  if sTemp = '' then
-  begin
-    ShowMessage('The value entered can not be accepted. Please Try Again');
-    Exit;
-  end;
-  rAmountPaid := StrToFloat(sTemp);
-  if (rTotal > rAmountPaid) then
-  begin
-    ShowMessage
-      ('The value entred is smaller than the total cost of the Sale. Please Try Again');
-    Exit;
-  end;
+   try
+       if sTemp = '' then
+      begin
+        ShowMessage('The value entered can not be accepted. Please Try Again');
+        Exit;
+      end;
+      rAmountPaid := StrToFloat(sTemp);
+      if (rTotal > rAmountPaid) then
+      begin
+        ShowMessage
+          ('The value entred is smaller than the total cost of the Sale. Please Try Again');
+        Exit;
+      end;
+
+   Except
+    on E : Exception do
+      begin
+        ShowMessage('You have not entered a valid number. Please try again');
+        Exit
+      end;
+
+   end;
+
   end;
   rAmountPaid := StrToFloat(sTemp);
   if iCardPayment = mrYes then
@@ -226,8 +237,8 @@ begin
   objGiftCard.Free;
 
   objLog:= TLog.Create;
-  objLog.WriteLog('INFO','Tansaction Event : Tranasction '
-  +IntToStr(iTransactionID)+'Completed');
+  objLog.WriteLog('INFO','Tansaction Event : Transaction '
+  +IntToStr(iTransactionID)+' Completed');
   objLog.Free;
 end;
 
@@ -241,6 +252,7 @@ var
 begin
   if Ord(Key) = VK_RETURN then
   begin
+    tblStock.Active:= true;
     Key := #0;
     sBarcode := edtBarcode.Text;
     bItemScanned := False;

@@ -39,6 +39,8 @@ uses
 
 procedure TfrmAddProduct.btnAddProductClick(Sender: TObject);
 begin
+  tblAddProduct.Active:= True;
+  qryAddProduct.Active:= True;
   if (lbledtBarcode.Text = '') OR (lbledtProductCost.Text = '') OR
     (lbledtProductName.Text = '') OR (lbledtProductSell.Text = '') OR
     (lbledtProductAmount.Text = '') then
