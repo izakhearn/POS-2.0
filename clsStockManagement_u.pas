@@ -46,6 +46,7 @@ procedure TStockManagment.AddStock(sBarcode: string; iAmountAdd: Integer);
 var
   fAmountAvailable: Integer;
 begin
+  tblStock.Active := True;
   fBarcode := sBarcode;
   with qryStock do
   begin
@@ -76,6 +77,7 @@ function TStockManagment.GetProductInfo(sBarcode: string): string;
 var
   fTemp: string;
 begin
+  tblStock.Active := True;
   fBarcode := sBarcode;
   with qryStock do
   begin
@@ -91,6 +93,7 @@ end;
 
 function TStockManagment.GetProductName(sBarcode: string): string;
 begin
+ tblStock.Active := True;
   fBarcode := sBarcode;
   with qryStock do
   begin
@@ -104,6 +107,7 @@ end;
 
 function TStockManagment.GetProductPrice(sBarcode: string): Real;
 begin
+  tblStock.Active := True;
   fBarcode := sBarcode;
   with qryStock do
   begin
@@ -117,6 +121,7 @@ end;
 
 function TStockManagment.GetStockAvalible(sBarcode: string): Integer;
 begin
+ tblStock.Active := True;
   fBarcode := sBarcode;
   with qryStock do
   begin
@@ -132,6 +137,7 @@ procedure TStockManagment.RemoveStock(sBarcode: string; iAmountRemove: Integer);
 var
   fAmountAvailable: Integer;
 begin
+  tblStock.Active := True;
   fBarcode := sBarcode;
   with qryStock do
   begin

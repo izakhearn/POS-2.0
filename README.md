@@ -36,4 +36,4 @@ For the ease of disclosure the setup will create the following folders for the a
 
 - POS 2.0 Folder in Program Files containing the Binary for the application
 - POS 2.0 Folder in APPDATA that will contain the HTML Reports as well as the connection information for your database.
-- It use to use the windows registry for strong certain information but I have since decided to move away from that approach as I don't like messing with the windows registry 
+- It use to use the windows registry for storing certain information but I have since decided to move away from that approach as I don't like messing with the windows registry 

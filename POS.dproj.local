@@ -2,9 +2,9 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2022/05/17 16:59:48.000.263,=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.pas</Transaction>
-    <Transaction>2022/05/17 17:00:20.000.076,C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\clsLogging.pas=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.pas</Transaction>
+    <Transaction>2022/05/17 17:00:20.000.076,C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.pas=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\clsLogging.pas</Transaction>
     <Transaction>2022/05/18 18:03:37.000.722,=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.pas</Transaction>
-    <Transaction>2022/05/18 18:04:58.000.512,C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.dfm=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\LogView_u.dfm</Transaction>
-    <Transaction>2022/05/18 18:04:58.000.512,C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.pas=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\LogView_u.pas</Transaction>
+    <Transaction>2022/05/18 18:04:58.000.512,C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\LogView_u.pas=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.pas</Transaction>
+    <Transaction>2022/05/18 18:04:58.000.512,C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\LogView_u.dfm=C:\Users\izakhearn\Documents\Git-Repositories\pos-2.0\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

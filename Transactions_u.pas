@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, DM_u, Data.DB, Data.Win.ADODB,
   Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, clsExport,
-  Winapi.ShellAPI;
+  Winapi.ShellAPI, Vcl.ExtCtrls;
 
 type
   TfrmTransactions = class(TForm)
@@ -29,6 +29,7 @@ type
     btnExportTransactions: TBitBtn;
     btnGenerateReport: TBitBtn;
     btnFilterByCard: TBitBtn;
+    tmrConnectDS: TTimer;
     procedure btnLookupEmployeeClick(Sender: TObject);
     procedure btnViewTransactionDetailsClick(Sender: TObject);
     procedure btnFilterClick(Sender: TObject);
@@ -38,6 +39,7 @@ type
     procedure btnExportTransactionsClick(Sender: TObject);
     procedure btnGenerateReportClick(Sender: TObject);
     procedure btnFilterByCardClick(Sender: TObject);
+    procedure tmrConnectDSTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -163,6 +165,7 @@ procedure TfrmTransactions.btnViewTransactionDetailsClick(Sender: TObject);
 var
   sTransactionID: string;
 begin
+  tblTransactionDetails.Active:=true;
   sTransactionID := InputBox('Transaction ID',
     'Please enter transaction ID', '');
   if tblTransactionDetails.Locate('ID', sTransactionID, []) = False then
@@ -192,6 +195,13 @@ begin
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
   dtpStart.Date:= Now;
   dtpEnd.Date:= Now ;
+end;
+
+procedure TfrmTransactions.tmrConnectDSTimer(Sender: TObject);
+begin
+    tblTransactionDetails.Active:=True;
+    qryTransactions.Active := True;
+    dsTransactions.Enabled := True;
 end;
 
 end.

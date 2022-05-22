@@ -12,11 +12,12 @@ object DataModule1: TDataModule1
     ConnectOptions = coAsyncConnect
     LoginPrompt = False
     Mode = cmReadWrite
+    AfterDisconnect = conMainAfterDisconnect
     Left = 16
     Top = 24
   end
   object Timer1: TTimer
-    Interval = 30000
+    Interval = 50000
     OnTimer = Timer1Timer
     Left = 88
     Top = 88
