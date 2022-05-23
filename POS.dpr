@@ -28,7 +28,8 @@ uses
   EditCard_u in 'EditCard_u.pas' {frmEditCard},
   clsGiftCard in 'clsGiftCard.pas',
   clsLogging in 'clsLogging.pas',
-  LogView_u in 'LogView_u.pas' {frmLog};
+  LogView_u in 'LogView_u.pas' {frmLog},
+  DBInfo_u in 'DBInfo_u.pas' {frmDBInfo};
 
 {$R *.res}
 
@@ -37,8 +38,9 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.Title := 'POS 2.0';
   TStyleManager.TrySetStyle('Windows10 SlateGray');
-  Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmDBInfo, frmDBInfo);
+  Application.CreateForm(TDataModule1, DataModule1);
   Application.CreateForm(TfrmSales, frmSales);
   Application.CreateForm(TfrmAdmin, frmAdmin);
   Application.CreateForm(TfrmTransactions, frmTransactions);

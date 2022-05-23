@@ -192,7 +192,7 @@ end;
 procedure TfrmStockManager.FormCreate(Sender: TObject);
 begin
   SetWindowLong(Handle, GWL_EXSTYLE, WS_EX_APPWINDOW);
-  qryStockFilter.Active:= True;
+  //qryStockFilter.Active:= True;
 end;
 
 procedure TfrmStockManager.FormShow(Sender: TObject);

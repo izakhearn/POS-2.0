@@ -12,7 +12,7 @@ uses
 
   REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, IdGlobal,
-  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types,clsLogging,LogView_u;
+  Vcl.ComCtrls, System.JSON, Bcrypt, Vcl.Menus, REST.Types,clsLogging,LogView_u,DBInfo_u;
 
 type
   TfrmLogin = class(TForm)
@@ -29,7 +29,6 @@ type
     Exit1: TMenuItem;
     Log1: TMenuItem;
     procedure btnLoginClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure edtPasswordKeyPress(Sender: TObject; var Key: Char);
     procedure TerminateApplication;
@@ -68,6 +67,7 @@ var
   MyClass: TComponent;
   objLog : TLog;
 begin
+  qryLogin.Active := True;
   sPassword := '';
   sUsername := '';
   with qryLogin do
@@ -169,12 +169,6 @@ end;
 procedure TfrmLogin.FormActivate(Sender: TObject);
 begin
   edtUsername.SetFocus;
-end;
-
-procedure TfrmLogin.FormCreate(Sender: TObject);
-
-begin
-  qryLogin.Active := True;
 end;
 
 procedure TfrmLogin.Log1Click(Sender: TObject);

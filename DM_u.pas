@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.Win.ADODB, Data.DB, Winapi.Windows,
-  About_u, Data.DBXMySQL, Data.SqlExpr, Vcl.Dialogs, Vcl.ExtCtrls,clsLogging;
+  About_u, Data.DBXMySQL, Data.SqlExpr, Vcl.Dialogs, Vcl.ExtCtrls,clsLogging,DBInfo_u;
 
 type
   TDataModule1 = class(TDataModule)
@@ -21,11 +21,12 @@ type
   public
     { Public declarations }
     procedure ReconncectDB;
+    procedure InitialDBConnect;
   end;
 
 var
   DataModule1: TDataModule1;
-  bFistConnect: Boolean;
+  bConnectAtStart: Boolean;
   objLog : TLog;
 
 implementation
@@ -57,23 +58,26 @@ begin
   // Check if the DBInfo file exists. This file is used to pull your database connection
   // info from. If the file does not exist we show a series of popup boxes that will ask
   // you for the infomation for the application to connect to the database
-  if FileExists(GetEnvironmentVariable('APPDATA') + '\POS 2.0\DBInfo') = False
+  if System.SysUtils.FileExists(GetEnvironmentVariable('APPDATA') + '\POS 2.0\DBInfo') = False
   then
   begin
-    sServerAddress := InputBox('Server Address',
-      'Please enter your servers IP address', '');
-    sDataBase := InputBox('Database name',
-      'Please enter the name of your database', '');
-    sUser := InputBox('Database User',
-      'Please enter the database username', '');
-    sPassword := InputBox('Database Password',
-      'Please enter the database password', '');
-    Rewrite(tDBConnectInfo);
-    Writeln(tDBConnectInfo, sServerAddress);
-    Writeln(tDBConnectInfo, sDataBase);
-    Writeln(tDBConnectInfo, sUser);
-    Writeln(tDBConnectInfo, sPassword);
-    CloseFile(tDBConnectInfo);
+    DBInfo_u.frmDBInfo.Show;
+//    sServerAddress := InputBox('Server Address',
+//      'Please enter your servers IP address', '');
+//    sDataBase := InputBox('Database name',
+//      'Please enter the name of your database', '');
+//    sUser := InputBox('Database User',
+//      'Please enter the database username', '');
+//    sPassword := InputBox('Database Password',
+//      'Please enter the database password', '');
+//    Rewrite(tDBConnectInfo);
+//    Writeln(tDBConnectInfo, sServerAddress);
+//    Writeln(tDBConnectInfo, sDataBase);
+//    Writeln(tDBConnectInfo, sUser);
+//    Writeln(tDBConnectInfo, sPassword);
+//    CloseFile(tDBConnectInfo);
+      Exit;
+
   end
   else
   begin
@@ -83,6 +87,7 @@ begin
     Readln(tDBConnectInfo, sUser);
     Readln(tDBConnectInfo, sPassword);
     Close(tDBConnectInfo);
+    bConnectAtStart := True;
   end;
 
   Try
@@ -91,7 +96,7 @@ begin
     // false when the application starts
     if conMain.Connected then // already connected?
     begin
-      MessageDlg('Already connected', mtInformation, [mbOK], 0);
+      //MessageDlg('Already connected', mtInformation, [mbOK], 0);
       Exit;
     end;
       conMain.LoginPrompt := False; // dont ask for the login parameters
@@ -99,7 +104,6 @@ begin
         sServerAddress + ';Database=' + sDataBase + ';User=' + sUser +
         '; Password=' + sPassword + ';Option=3;';
       conMain.Connected := True; // open the connection
-
       //Log the Application starting and connecting to database action
       objLog:= TLog.Create;
       objLog.WriteLog('INFO','Application Starting..');
@@ -172,7 +176,28 @@ end;
 // Reconnects the database to the application
 procedure TDataModule1.Timer1Timer(Sender: TObject);
 begin
- ReconncectDB;
+  if bConnectAtStart = False then
+  begin
+   InitialDBConnect;
+   Exit
+  end;
+  ReconncectDB;
+end;
+
+procedure TDataModule1.InitialDBConnect;
+var
+   tDBConnectInfo: Textfile;
+begin
+    AssignFile(tDBConnectInfo, GetEnvironmentVariable('APPDATA') +
+    '\POS 2.0\DBInfo');
+    Reset(tDBConnectInfo);
+    Readln(tDBConnectInfo, sServerAddress);
+    Readln(tDBConnectInfo, sDataBase);
+    Readln(tDBConnectInfo, sUser);
+    Readln(tDBConnectInfo, sPassword);
+    Close(tDBConnectInfo);
+    bConnectAtStart := True;
+    ReconncectDB;
 end;
 
 end.

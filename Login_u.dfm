@@ -15,7 +15,6 @@ object frmLogin: TfrmLogin
   Position = poScreenCenter
   Scaled = False
   OnActivate = FormActivate
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object btnLogin: TBitBtn
